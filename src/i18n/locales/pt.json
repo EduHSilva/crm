@@ -1,7 +1,23 @@
 {
+  "login": "Entrar",
+  "register": "Registrar",
+  "email": "E-mail",
+  "password": "Senha",
+  "username": "Nome",
+  "enterEmail": "Insira seu e-mail",
+  "enterPassword": "Insira sua senha",
+  "enterUsername": "Insira seu nome",
+  "rememberMe": "Manter-se conectado",
+  "forgotPassword": "Esqueceu a senha?",
+  "dontHaveAccount": "Não tem uma conta ?",
+  "haveAccount": "Já possui uma conta ?",
+  "or": "ou",
+  "errors": {
+    "invalidEmail": "E-mail inválido",
+    "required": "Campo é obrigatorio",
+    "passwordRules": "Senha deve conter pelo menos 8 caracteres"
+  },
   "landingPage": {
-    "login": "Entrar",
-    "register": "Registrar",
     "easyCRM": "CRM Simples para Freelancers",
     "manageClients": "Gerencie seus clientes, projetos e lembretes em um só lugar. Feito especialmente para profissionais autônomos.",
     "startFree": "Começar gratuitamente",

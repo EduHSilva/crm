@@ -1,7 +1,7 @@
 <template>
   <USeparator />
 
-  <UFooter class="bg-light dark:bg-dark">
+  <UFooter>
     <template #left>
       <p class="text-sm text-muted">
         Eduardo Henrique da Silva • © {{ new Date().getFullYear() }}

@@ -8,7 +8,7 @@ const localeOptions = [
 </script>
 
 <template>
-  <UHeader class="bg-light dark:bg-dark">
+  <UHeader>
     <template #left>
       <NuxtLink to="/">
         <img
@@ -20,7 +20,7 @@ const localeOptions = [
     </template>
 
     <template #right>
-      <UColorModeButton />
+      <UColorModeSwitch />
       <USelect
         v-model="locale"
         :items="localeOptions"
@@ -34,13 +34,13 @@ const localeOptions = [
         to="/login"
         class="bg-primary dark:bg-primary-dark"
       >
-        {{ $t('landingPage.login') }}
+        {{ $t('login') }}
       </UButton>
       <UButton
-        to="/login"
+        to="/register"
         variant="outline"
       >
-        {{ $t('landingPage.register') }}
+        {{ $t('register') }}
       </UButton>
     </template>
   </UHeader>

@@ -1,5 +1,5 @@
 <script setup>
-import CustomHeader from "~/components/CustomHeader.vue";
+import CustomHeader from '~/components/CustomHeader.vue'
 
 useHead({
   meta: [
@@ -25,11 +25,13 @@ useSeoMeta({
 </script>
 
 <template>
-  <UApp class="bg-light dark:bg-dark">
-    <CustomHeader />
-    <UMain>
-      <NuxtPage class="bg-light dark:bg-dark" />
-    </UMain>
-    <CustomFooter />
+  <UApp>
+    <Body class="bg-light dark:bg-dark">
+      <CustomHeader />
+      <UMain>
+        <NuxtPage />
+      </UMain>
+      <CustomFooter />
+    </Body>
   </UApp>
 </template>
