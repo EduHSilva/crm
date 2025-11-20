@@ -1,75 +1,71 @@
 <template>
   <div>
     <UPageHero
-      title="Nuxt Starter Template"
-      description="A production-ready starter template powered by Nuxt UI. Build beautiful, accessible, and performant applications in minutes, not hours."
+      title="CRM Simples para Freelancers"
+      description="Gerencie seus clientes, projetos e lembretes em um só lugar. Feito especialmente para profissionais autônomos."
       :links="[{
-        label: 'Get started',
-        to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-        target: '_blank',
+        label: 'Começar gratuitamente',
+        to: '/register',
         trailingIcon: 'i-lucide-arrow-right',
-        size: 'xl'
+        size: 'xl',
+        class: 'bg-primary dark:bg-primary-dark'
       }, {
-        label: 'Use this template',
+        label: 'Ver demo',
         to: 'https://github.com/nuxt-ui-templates/starter',
         target: '_blank',
-        icon: 'i-simple-icons-github',
+        icon: 'i-simple-icons-youtube',
         size: 'xl',
         color: 'neutral',
-        variant: 'subtle'
+        variant: 'outline'
       }]"
     />
 
     <UPageSection
       id="features"
-      title="Everything you need to build modern Nuxt apps"
-      description="Start with a solid foundation. This template includes all the essentials for building production-ready applications with Nuxt UI's powerful component system."
+      title="Tudo que você precisa para organizar seu negócio"
+      description="Funcionalidades pensadas para simplicidade e produtividade"
       :features="[{
-        icon: 'i-lucide-rocket',
-        title: 'Production-ready from day one',
-        description: 'Pre-configured with TypeScript, ESLint, Tailwind CSS, and all the best practices. Focus on building features, not setting up tooling.'
-      }, {
-        icon: 'i-lucide-palette',
-        title: 'Beautiful by default',
-        description: 'Leveraging Nuxt UI\'s design system with automatic dark mode, consistent spacing, and polished components that look great out of the box.'
-      }, {
-        icon: 'i-lucide-zap',
-        title: 'Lightning fast',
-        description: 'Optimized for performance with SSR/SSG support, automatic code splitting, and edge-ready deployment. Your users will love the speed.'
+        icon: 'i-lucide-user',
+        title: 'Gestão de Clientes',
+        description: 'Mantenha todas as informações dos seus clientes organizadas e acessíveis.',
+        class: 'rounded-lg p-10 bg-cards dark:bg-cards-dark'
       }, {
         icon: 'i-lucide-blocks',
-        title: '100+ components included',
-        description: 'Access Nuxt UI\'s comprehensive component library. From forms to navigation, everything is accessible, responsive, and customizable.'
+        title: 'Acompanhamento de Projetos',
+        description: 'Visualize o progresso dos seus projetos com nosso sistema Kanban intuitivo.',
+        class: 'rounded-lg p-10 bg-cards dark:bg-cards-dark'
       }, {
-        icon: 'i-lucide-code-2',
-        title: 'Developer experience first',
-        description: 'Auto-imports, hot module replacement, and TypeScript support. Write less boilerplate and ship more features.'
+        icon: 'i-lucide-zap',
+        title: 'Lembretes Inteligentes',
+        description: 'Nunca mais perca um prazo com nosso sistema de lembretes automáticos.',
+        class: 'rounded-lg p-10 bg-cards dark:bg-cards-dark'
       }, {
-        icon: 'i-lucide-shield-check',
-        title: 'Built for scale',
-        description: 'Enterprise-ready architecture with proper error handling, SEO optimization, and security best practices built-in.'
+        icon: 'i-lucide-blocks',
+        title: 'Dashboard Completo',
+        description: 'Tenha uma visão geral do seu negócio com métricas e relatórios em tempo real.',
+        class: 'rounded-lg p-10 bg-cards dark:bg-cards-dark'
       }]"
     />
 
     <UPageSection>
       <UPageCTA
-        title="Ready to build your next Nuxt app?"
-        description="Join thousands of developers building with Nuxt and Nuxt UI. Get this template and start shipping today."
+        title="Pronto para organizar seu negócio?"
+        description="Comece gratuitamente e veja a diferença em poucos minutos"
         variant="subtle"
         :links="[{
-          label: 'Start building',
-          to: 'https://ui.nuxt.com/docs/getting-started/installation/nuxt',
-          target: '_blank',
+          label: 'Começar gratuitamente',
+          to: '/register',
           trailingIcon: 'i-lucide-arrow-right',
-          color: 'neutral'
+          color: 'neutral',
+          class: 'bg-primary dark:bg-primary-dark'
         }, {
-          label: 'View on GitHub',
+          label: 'Saiba mais',
           to: 'https://github.com/nuxt-ui-templates/starter',
-          target: '_blank',
-          icon: 'i-simple-icons-github',
+          icon: 'i-simple-icons-youtube',
           color: 'neutral',
           variant: 'outline'
         }]"
+        :ui="{ container: 'bg-cards dark:bg-cards-dark' }"
       />
     </UPageSection>
   </div>
