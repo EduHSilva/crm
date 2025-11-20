@@ -1,0 +1,23 @@
+{
+  "landingPage": {
+    "login": "Entrar",
+    "register": "Registrar",
+    "easyCRM": "CRM Simples para Freelancers",
+    "manageClients": "Gerencie seus clientes, projetos e lembretes em um só lugar. Feito especialmente para profissionais autônomos.",
+    "startFree": "Começar gratuitamente",
+    "viewDemo": "Ver demo",
+    "allYouNeed": "Tudo que você precisa para organizar seu negócio",
+    "featuresPlanning": "Funcionalidades pensadas para simplicidade e produtividade",
+    "clientsManagement": "Gestão de Clientes",
+    "clientsManagementDescription": "Mantenha todas as informações dos seus clientes organizadas e acessíveis.",
+    "projects": "Acompanhamento de Projetos",
+    "projectsDescription": "Visualize o progresso dos seus projetos com nosso sistema Kanban intuitivo.",
+    "smartAlarm": "Lembretes Inteligentes",
+    "smartAlarmDescription": "Nunca mais perca um prazo com nosso sistema de lembretes automáticos.",
+    "dashboardCompleted": "Dashboard completo",
+    "dashboardCompletedDescription": "Tenha uma visão geral do seu negócio com métricas e relatórios em tempo real.",
+    "readyToOrganize": "Pronto para organizar seu negócio?",
+    "seeDifference": "Comece gratuitamente e veja a diferença em poucos minutos",
+    "aboutMore": "Saiba mais"
+  }
+}

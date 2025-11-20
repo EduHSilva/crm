@@ -1,3 +1,12 @@
+<script setup>
+const { locale, setLocale } = useI18n()
+
+const localeOptions = [
+  { value: 'pt', label: '🇧🇷 Português' },
+  { value: 'en', label: '🇺🇸 English' }
+]
+</script>
+
 <template>
   <UHeader class="bg-light dark:bg-dark">
     <template #left>
@@ -12,18 +21,26 @@
 
     <template #right>
       <UColorModeButton />
+      <USelect
+        v-model="locale"
+        :items="localeOptions"
+        option-attribute="label"
+        value-attribute="value"
+        size="sm"
+        @update:model-value="setLocale($event)"
+      />
 
       <UButton
         to="/login"
         class="bg-primary dark:bg-primary-dark"
       >
-        Login
+        {{ $t('landingPage.login') }}
       </UButton>
       <UButton
         to="/login"
         variant="outline"
       >
-        Registrar
+        {{ $t('landingPage.register') }}
       </UButton>
     </template>
   </UHeader>

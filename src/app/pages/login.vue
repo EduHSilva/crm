@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    login
+    {{ $t('login') }}
   </div>
 </template>
 

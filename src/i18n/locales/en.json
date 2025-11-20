@@ -1,0 +1,23 @@
+{
+  "landingPage": {
+    "login": "Login",
+    "register": "Register",
+    "easyCRM": "Simple CRM for Freelancers",
+    "manageClients": "Manage your clients, projects, and reminders in one place. Made especially for freelancers.",
+    "startFree": "Start for free",
+    "viewDemo": "View demo",
+    "allYouNeed": "Everything you need to organize your business",
+    "featuresPlanning": "Features designed for simplicity and productivity",
+    "clientsManagement": "Client Management",
+    "clientsManagementDescription": "Keep all your client information organized and accessible.",
+    "projects": "Project Tracking",
+    "projectsDescription": "Visualize the progress of your projects with our intuitive Kanban system.",
+    "smartAlarm": "Smart Reminders",
+    "smartAlarmDescription": "Never miss a deadline again with our automated reminder system.",
+    "dashboardCompleted": "Complete dashboard",
+    "dashboardCompletedDescription": "Get an overview of your business with real-time metrics and reports.",
+    "readyToOrganize": "Ready to organize your business?",
+    "seeDifference": "Start for free and see the difference in minutes",
+    "aboutMore": "Learn more"
+  }
+}
