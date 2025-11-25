@@ -2,6 +2,8 @@
 import * as z from 'zod'
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 
+const toast = useToast()
+
 const fields: AuthFormField[] = [{
   name: 'email',
   type: 'email',
@@ -31,19 +33,38 @@ const providers = [{
   label: 'GitHub',
   icon: 'i-simple-icons-github',
   onClick: () => {
-
   }
 }]
 
 const schema = z.object({
   email: z.email($t('errors.invalidEmail')),
+  username: z.string($t('errors.required')),
   password: z.string($t('errors.required')).min(8, $t('errors.passwordRules'))
 })
 
 type Schema = z.output<typeof schema>
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log(payload)
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  const { $userService } = useNuxtApp()
+  try {
+    const data = await $userService.register(payload.data.username, payload.data.email, payload.data.password)
+    if (!data) {
+      toast.add({
+        title: $t('attention'),
+        description: $t('errors.registerError'),
+        icon: 'i-lucide-calendar-days'
+      })
+    } else {
+      console.log(data)
+    }
+  } catch (e) {
+    toast.add({
+      title: $t('attention'),
+      description: $t('errors.registerError'),
+      icon: 'i-lucide-calendar-days'
+    })
+    console.error(e)
+  }
 }
 </script>
 

@@ -12,10 +12,13 @@
   "dontHaveAccount": "Não tem uma conta ?",
   "haveAccount": "Já possui uma conta ?",
   "or": "ou",
+  "attention": "Atenção",
   "errors": {
     "invalidEmail": "E-mail inválido",
     "required": "Campo é obrigatorio",
-    "passwordRules": "Senha deve conter pelo menos 8 caracteres"
+    "passwordRules": "Senha deve conter pelo menos 8 caracteres",
+    "loginError": "Erro ao realizar login.",
+    "registerError": "Não foi possivel realizar o cadastro"
   },
   "landingPage": {
     "easyCRM": "CRM Simples para Freelancers",
