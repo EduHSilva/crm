@@ -1,17 +1,16 @@
 import { useUser } from '~/plugins/userService'
+import { getTokenCookie } from '~/utils/util'
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  const URLS_NO_LOGIN = [
-    '/login',
-    '/register',
-    '/'
-  ]
-  const token = useCookie('token').value
+  const URLS_NO_LOGIN = ['/login', '/register', '/']
+
+  const token = getTokenCookie()
 
   if (URLS_NO_LOGIN.includes(to.path)) {
-    if (token) return navigateTo('/home')
+    if (token.value?.token) return navigateTo('/dashboard')
     return
   }
+
   const user = useUser()
   const { $userService } = useNuxtApp()
 
@@ -19,7 +18,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
   try {
     user.value = await $userService.getUser()
   } catch (e) {
-    console.log(e)
-    return navigateTo('/login')
+    console.error(e)
+    token.value = { token: null }
+    return navigateTo('/')
   }
 })

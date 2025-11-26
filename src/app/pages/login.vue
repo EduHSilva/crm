@@ -2,6 +2,7 @@
 import * as z from 'zod'
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 import { useUser } from '~/plugins/userService'
+import { getTokenCookie } from '~/utils/utils'
 
 const toast = useToast()
 
@@ -54,9 +55,10 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         icon: 'i-lucide-calendar-days'
       })
     } else {
-      useCookie('token').value = data.token
+      const token = getTokenCookie()
+      token.value = { token: data.token }
       useUser().value = data
-      navigateTo('/home')
+      navigateTo('/dashboard')
     }
   } catch (e) {
     console.error(e)

@@ -1,5 +1,5 @@
 import userService from '@/services/userService'
-import type { User } from '~/types'
+import type { User } from '~/utils/types'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()

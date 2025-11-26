@@ -1,4 +1,5 @@
-import type { User } from '~/types'
+import type { User } from '~/utils/types'
+import { getTokenCookie } from '~/utils/util'
 
 export interface UserServiceOptions {
   apiUsersUrl: string | unknown
@@ -20,10 +21,9 @@ export default function userService({ apiUsersUrl }: UserServiceOptions): UserSe
     },
 
     async getUser() {
-      const token = useCookie('token').value
       return await $fetch(`${apiUsersUrl}/auth/me`, {
         headers: {
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + getTokenCookie().value?.token
         }
       })
     },
