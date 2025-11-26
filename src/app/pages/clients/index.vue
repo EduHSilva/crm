@@ -4,7 +4,7 @@ import SideBar from '~/components/SideBar.vue'
 const items = ref(['Backlog', 'Todo', 'In Progress', 'Done'])
 const value = ref('Backlog')
 
-let clients = await $fetch('/api/clients')
+const clients = await $fetch('/api/clients')
 const data = ref(clients)
 </script>
 
