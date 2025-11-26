@@ -2,7 +2,7 @@
 import * as z from 'zod'
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 import { useUser } from '~/plugins/userService'
-import { getTokenCookie } from '~/utils/utils'
+import { getTokenCookie } from '~/utils/util'
 
 const toast = useToast()
 

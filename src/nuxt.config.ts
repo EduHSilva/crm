@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-console.log('ENV:', process.env.NUXT_PUBLIC_API_USER_URL)
 
 export default defineNuxtConfig({
   modules: [
