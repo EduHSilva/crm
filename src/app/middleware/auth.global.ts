@@ -7,7 +7,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
   const token = getTokenCookie()
 
   if (URLS_NO_LOGIN.includes(to.path)) {
-    if (token.value?.token) return navigateTo('/dashboard')
     return
   }
 

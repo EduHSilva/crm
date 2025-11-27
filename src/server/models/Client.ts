@@ -9,10 +9,19 @@ const Client = sequelize.define('clients', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: false,
     validate: {
       isEmail: true
     }
+  },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  status: {
+    type: DataTypes.ENUM('new', 'working', 'done')
+  },
+  observations: {
+    type: DataTypes.TEXT
   }
 })
 

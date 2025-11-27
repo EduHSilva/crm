@@ -1,5 +1,5 @@
 export function getTokenCookie() {
-  return useCookie<{ token: string | null } | null>('token1')
+  return useCookie<{ token: string | null } | null>('token')
 }
 
 export function formatCurrency(locale: string, value: number) {

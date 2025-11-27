@@ -23,7 +23,20 @@ const items: NavigationMenuItem[][] = [[{
   to: '/services',
   icon: 'i-lucide-axe',
   active: props.active?.includes('services')
-}, {
+},
+{
+  label: $t('budgets'),
+  to: '/budgets',
+  icon: 'i-lucide-notebook',
+  active: props.active?.includes('budgets')
+},
+{
+  label: $t('kanban'),
+  to: '/kanban',
+  icon: 'i-lucide-kanban',
+  active: props.active?.includes('kanban')
+},
+{
   label: $t('reminders'),
   to: '/reminders',
   badge: '4',

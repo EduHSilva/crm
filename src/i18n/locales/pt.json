@@ -15,13 +15,37 @@
   "attention": "Atenção",
   "dashboard": "Dashboard",
   "clients": "Clientes",
+  "budgets": "Orçamentos",
   "services": "Serviços",
   "reminders": "Lembretes",
   "settings": "Configurações",
   "account": "Conta",
   "general": "Gerais",
-  "newClient": "Novo cliente",
-  "newService": "Novo serviço",
+  "newClient": "Adicionar cliente",
+  "newService": "Adicionar serviço",
+  "newBudget": "Adicionar orçamento",
+  "kanban" : "Kanban",
+  "client": {
+    "manage": "Gerencie seus clientes e suas informações",
+    "search": "Pesquisar por cliente",
+    "filter": "Todos status",
+    "noData": "Nenhum cliente encontrado",
+    "noDataDescription": "Comece adicionando seu primeiro cliente"
+  },
+  "service": {
+    "manage": "Gerencie seus projetos e serviços",
+    "search": "Pesquisar por titulo ou cliente",
+    "filter": "Todos status",
+    "noData": "Nenhum serviço encontrado",
+    "noDataDescription": "Comece adicionando seu primeiro serviço"
+  },
+  "budget": {
+    "manage": "Crie e gerencie orçamentos profissionais",
+    "search": "Pesquisar por orçamento",
+    "noData": "Nenhum orçamento encontrado",
+    "noDataDescription": "Comece criando seu primeiro orçamento",
+    "new": "Novo orçamento"
+  },
   "dash": {
     "generalVision": "Visão geral do seu negocio",
     "totalOfClients": "Total de clientes",

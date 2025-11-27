@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import SideBar from '~/components/SideBar.vue'
 import DashCard from '~/components/DashCard.vue'
+import NewClientModal from '~/components/modais/NewClientModal.vue'
+import NewServiceModal from '~/components/modais/NewServiceModal.vue'
 
 const { locale } = useI18n()
 </script>
@@ -17,18 +19,8 @@ const { locale } = useI18n()
           {{ $t('dash.generalVision') }}
         </div>
         <div>
-          <UButton
-            to="/clients/new"
-            class="bg-primary dark:bg-primary-dark m-2"
-          >
-            {{ $t('newClient') }}
-          </UButton>
-          <UButton
-            to="/services/new"
-            variant="outline"
-          >
-            {{ $t('newService') }}
-          </UButton>
+          <NewClientModal extra-class="m-2" />
+          <NewServiceModal variant="outline" />
         </div>
       </div>
       <div class="flex justify-between">
