@@ -56,8 +56,8 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
       })
     } else {
       const token = getTokenCookie()
-      token.value = { token: data.token }
-      useUser().value = data
+      token.value = { token: data.data.token }
+      useUser().value = data.data
       navigateTo('/dashboard')
     }
   } catch (e) {

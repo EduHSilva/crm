@@ -5,7 +5,7 @@ export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
 
   const service = userService({
-    apiUsersUrl: config.public.apiUserUrl
+    apiUrl: `${config.public.apiUrl}/users/`
   })
 
   return {

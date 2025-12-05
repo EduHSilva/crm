@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      apiUserUrl: process.env.NUXT_PUBLIC_API_USER_URL
+      apiUrl: process.env.NUXT_PUBLIC_API_URL
     }
   },
 

@@ -4,9 +4,10 @@ import NewClientModal from '~/components/modais/NewClientModal.vue'
 
 const items = ref(['Todo', 'In Progress', 'Done'])
 const value = ref('')
+const { $clientService } = useNuxtApp()
 
-const clients = await $fetch('/api/clients')
-const data = ref(clients)
+const clients = await $clientService.findClients()
+const data = ref(clients.data.items)
 </script>
 
 <template>
