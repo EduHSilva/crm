@@ -24,13 +24,26 @@
   "newClient": "Adicionar cliente",
   "newService": "Adicionar serviço",
   "newBudget": "Adicionar orçamento",
-  "kanban" : "Kanban",
+  "kanban": "Kanban",
+  "save": "Salvar",
+  "update": "Atualizar",
   "client": {
     "manage": "Gerencie seus clientes e suas informações",
     "search": "Pesquisar por cliente",
     "filter": "Todos status",
     "noData": "Nenhum cliente encontrado",
-    "noDataDescription": "Comece adicionando seu primeiro cliente"
+    "noDataDescription": "Comece adicionando seu primeiro cliente",
+    "created": "Cliente salvo com sucesso",
+    "updated": "Cliente atualizado com sucesso",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefone",
+    "observations": "Observações",
+    "status": "Status",
+    "new": "Novo",
+    "edit": "Editar",
+    "working": "Aguardando",
+    "done": "Finalizado"
   },
   "service": {
     "manage": "Gerencie seus projetos e serviços",
@@ -61,7 +74,8 @@
     "required": "Campo é obrigatorio",
     "passwordRules": "Senha deve conter pelo menos 8 caracteres",
     "loginError": "Erro ao realizar login.",
-    "registerError": "Não foi possivel realizar o cadastro"
+    "registerError": "Não foi possivel realizar o cadastro",
+    "saveError": "Erro ao salvar"
   },
   "landingPage": {
     "easyCRM": "CRM Simples para Freelancers",

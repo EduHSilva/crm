@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import SideBar from '~/components/SideBar.vue'
 import DashCard from '~/components/DashCard.vue'
-import NewClientModal from '~/components/modais/NewClientModal.vue'
+import ClientModal from '~/components/modais/ClientModal.vue'
 import NewServiceModal from '~/components/modais/NewServiceModal.vue'
 
+const clientModalRef = ref<InstanceType<typeof ClientModal> | null>(null)
+
+function openModal() {
+  clientModalRef.value?.openModal()
+}
 const { locale } = useI18n()
 </script>
 
@@ -19,7 +24,11 @@ const { locale } = useI18n()
           {{ $t('dash.generalVision') }}
         </div>
         <div>
-          <NewClientModal extra-class="m-2" />
+          <UButton
+            :label="$t('newClient')"
+            class="bg-primary dark:bg-primary-dark m-2"
+            @click="openModal"
+          />
           <NewServiceModal variant="outline" />
         </div>
       </div>
@@ -49,5 +58,9 @@ const { locale } = useI18n()
         />
       </div>
     </div>
+    <ClientModal
+      ref="clientModalRef"
+      :client="null"
+    />
   </div>
 </template>

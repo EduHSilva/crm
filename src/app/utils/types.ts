@@ -5,7 +5,7 @@ export type DefaultResponse<T> = {
 }
 
 export type Page<T> = {
-  items: T
+  items: T[]
   total: number
   page: number
   size: number
@@ -26,8 +26,9 @@ export type NewClientRequest = {
 }
 
 export type Client = {
+  id?: string
   email: string
   name: string
   phone: string
-  observations: string
+  observations?: string
 }
