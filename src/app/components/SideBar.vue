@@ -18,11 +18,6 @@ const items: NavigationMenuItem[][] = [[{
   icon: 'i-lucide-users',
   to: '/clients',
   active: props.active?.includes('clients')
-}, {
-  label: $t('services'),
-  to: '/services',
-  icon: 'i-lucide-axe',
-  active: props.active?.includes('services')
 },
 {
   label: $t('budgets'),

@@ -18,17 +18,29 @@ export type User = {
   token: string
 }
 
-export type NewClientRequest = {
-  email: string
-  name: string
-  phone: string
-  observations: string
-}
-
 export type Client = {
   id?: string
   email: string
   name: string
   phone: string
+  observations?: string
+}
+
+export type Item = {
+  name: string
+  description: string
+  quantity: number
+  price: number
+}
+
+export type Budget = {
+  id?: string
+  title: string
+  description: string
+  client: string
+  clientName?: string
+  validate: number
+  items: Item[]
+  terms?: string
   observations?: string
 }

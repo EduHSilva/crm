@@ -2,7 +2,8 @@ export function getTokenCookie() {
   return useCookie<{ token: string | null } | null>('token')
 }
 
-export function formatCurrency(locale: string, value: number) {
+export function formatCurrency(value: number) {
+  const locale = navigator == undefined ? '' : navigator.language
   if (locale == 'en') {
     return 'U$ ' + value.toFixed(2)
   }

@@ -8,9 +8,11 @@ const localeOptions = [
   { value: 'en', label: '🇺🇸 English' }
 ]
 const logged = useUser().value != null
-let namePage = useRoute().name
-if (!namePage) {
-  namePage = 'dashboard'
+const route = useRoute()
+
+const namePage = computed(() => route.name)
+if (!namePage.value) {
+  namePage.value = 'dashboard'
 }
 </script>
 

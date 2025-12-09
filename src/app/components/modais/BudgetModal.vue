@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import ClientForm from '~/components/forms/ClientForm.vue'
-import type { Client } from '~/utils/types'
+import { ref } from 'vue'
+import type { Budget } from '~/utils/types'
+import BudgetForm from '~/components/forms/BudgetForm.vue'
 
 const open = ref(false)
 
+// -------------------------
+// PROPS
+// -------------------------
 const props = defineProps<{
-  client: Client | null
+  budget: Budget | null
   mode?: 'create' | 'edit'
 }>()
 
@@ -16,25 +20,26 @@ const emit = defineEmits<{
 const loading = ref(false)
 const toast = useToast()
 
-function openModal() {
-  open.value = true
-}
-
-function closeModal() {
-  open.value = false
-}
-
-async function handleSubmit(data: Client | { observations: string }) {
-  const { $clientService } = useNuxtApp()
+// -------------------------
+// SUBMIT
+// -------------------------
+async function handleSubmit(data: Budget) {
+  const { $budgetService } = useNuxtApp()
   loading.value = true
 
   try {
     let saved
 
-    if (props.mode === 'edit' && props.client?.id) {
-      saved = await $clientService.update(props.client.id, data.observations)
+    if (props.mode === 'edit' && props.budget?.id) {
+      saved = await $budgetService.update(
+        props.budget.id,
+        data
+      )
     } else {
-      saved = await $clientService.add(data as Client)
+      console.log(data)
+      saved = await $budgetService.add(
+        data
+      )
     }
 
     if (!saved) {
@@ -57,12 +62,24 @@ async function handleSubmit(data: Client | { observations: string }) {
         color: 'success'
       })
     }
+  } catch (e) {
+    console.error(e)
   } finally {
     loading.value = false
   }
 }
 
-defineExpose({ openModal, closeModal })
+function closeModal() {
+  open.value = false
+}
+
+function openModal() {
+  open.value = true
+}
+
+defineExpose({
+  closeModal, openModal
+})
 </script>
 
 <template>
@@ -74,8 +91,8 @@ defineExpose({ openModal, closeModal })
     :title="mode === 'edit' ? $t('client.edit') : $t('client.new')"
   >
     <template #body>
-      <ClientForm
-        :client="client"
+      <BudgetForm
+        :budget="budget"
         :mode="mode"
         @submitted="handleSubmit"
       >
@@ -89,7 +106,7 @@ defineExpose({ openModal, closeModal })
         >
           {{ mode === 'edit' ? $t('update') : $t('save') }}
         </UButton>
-      </ClientForm>
+      </BudgetForm>
     </template>
   </UModal>
 </template>

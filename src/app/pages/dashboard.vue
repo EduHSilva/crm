@@ -2,14 +2,19 @@
 import SideBar from '~/components/SideBar.vue'
 import DashCard from '~/components/DashCard.vue'
 import ClientModal from '~/components/modais/ClientModal.vue'
-import NewServiceModal from '~/components/modais/NewServiceModal.vue'
+import BudgetModal from '~/components/modais/BudgetModal.vue'
 
 const clientModalRef = ref<InstanceType<typeof ClientModal> | null>(null)
 
 function openModal() {
   clientModalRef.value?.openModal()
 }
-const { locale } = useI18n()
+
+const budgetModalRef = ref<InstanceType<typeof BudgetModal> | null>(null)
+
+function openModalBudget() {
+  budgetModalRef.value?.openModal()
+}
 </script>
 
 <template>
@@ -29,7 +34,12 @@ const { locale } = useI18n()
             class="bg-primary dark:bg-primary-dark m-2"
             @click="openModal"
           />
-          <NewServiceModal variant="outline" />
+          <UButton
+            :label="$t('newBudget')"
+            variant="outline"
+            class="bg-primary dark:bg-primary-dark m-2"
+            @click="openModalBudget"
+          />
         </div>
       </div>
       <div class="flex justify-between">
@@ -53,7 +63,7 @@ const { locale } = useI18n()
         <DashCard
           :title="$t('dash.income')"
           icon="i-lucide:coins"
-          :content="formatCurrency(locale, 0)"
+          :content="formatCurrency(0)"
           :footer="$t('dash.total')"
         />
       </div>
@@ -61,6 +71,10 @@ const { locale } = useI18n()
     <ClientModal
       ref="clientModalRef"
       :client="null"
+    />
+    <BudgetModal
+      ref="budgetModalRef"
+      :budget="null"
     />
   </div>
 </template>
