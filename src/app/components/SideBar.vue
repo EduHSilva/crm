@@ -26,7 +26,7 @@ const items: NavigationMenuItem[][] = [[{
   active: props.active?.includes('budgets')
 },
 {
-  label: $t('kanban'),
+  label: $t('kanban.title'),
   to: '/kanban',
   icon: 'i-lucide-kanban',
   active: props.active?.includes('kanban')

@@ -24,10 +24,23 @@
   "newClient": "Adicionar cliente",
   "newService": "Adicionar serviço",
   "newBudget": "Adicionar orçamento",
-  "kanban": "Kanban",
   "save": "Salvar",
   "update": "Atualizar",
   "cancel": "Cancelar",
+  "newReminder": "Adicinar lembrete",
+  "viewKanban": "Visualizar kanban",
+  "shortcuts": "Atalhos",
+  "recentBudgets": "Orçamentos recentes",
+  "reminder": {
+    "manage": "Gerencie seus lembretes"
+  },
+  "kanban": {
+    "title": "Kanban",
+    "manage": "Gerencie seus clientes e serviços",
+    "news": "Novos",
+    "working": "Em andamento",
+    "done": "Finalizados"
+  },
   "client": {
     "manage": "Gerencie seus clientes e suas informações",
     "search": "Pesquisar por cliente",
@@ -67,8 +80,8 @@
     "terms": "Termos",
     "observations": "Observações",
     "addItem": "Adicionar item",
-    "itemName" : "Nome do item",
-    "itemDescription" : "Descrição",
+    "itemName": "Nome do item",
+    "itemDescription": "Descrição",
     "quantity": "Quantidade",
     "price": "Preço (uni.)",
     "filter": "Todos os status",

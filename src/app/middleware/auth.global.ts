@@ -15,7 +15,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   if (user.value) return
   try {
-    user.value = await $userService.getUser()
+    const response = await $userService.getUser()
+    user.value = response.data
   } catch (e) {
     console.error(e)
     token.value = { token: null }

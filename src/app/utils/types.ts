@@ -44,3 +44,11 @@ export type Budget = {
   terms?: string
   observations?: string
 }
+
+export type DashboardData = {
+  totalClients: number
+  pendingServices: number
+  workingServices: number
+  totalReceived: number
+  recentServices: Budget[]
+}
