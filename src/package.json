@@ -20,6 +20,8 @@
     "nuxt": "^4.2.1",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7",
+    "vue-draggable-next": "^2.3.0",
+    "vuedraggable": "^4.1.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {

@@ -42,6 +42,7 @@ export type Budget = {
   validate: number
   items: Item[]
   terms?: string
+  status?: string
   observations?: string
 }
 
@@ -51,4 +52,10 @@ export type DashboardData = {
   workingServices: number
   totalReceived: number
   recentServices: Budget[]
+}
+
+export type DashboardKanbanData = {
+  news: Budget[]
+  working: Budget[]
+  done: Budget[]
 }
