@@ -5,7 +5,7 @@
       :description="$t('landingPage.manageClients')"
       :links="[{
         label: $t('landingPage.startFree'),
-        to: '/register',
+        to: '/auth/register',
         trailingIcon: 'i-lucide-arrow-right',
         size: 'xl',
         class: 'bg-primary dark:bg-primary-dark'

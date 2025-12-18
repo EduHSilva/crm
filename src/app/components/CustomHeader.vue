@@ -50,14 +50,14 @@ if (!namePage.value) {
 
       <UButton
         v-if="!logged"
-        to="/login"
+        to="/auth/login"
         class="bg-primary dark:bg-primary-dark"
       >
         {{ $t('login') }}
       </UButton>
       <UButton
         v-if="!logged"
-        to="/register"
+        to="/auth/register"
         variant="outline"
       >
         {{ $t('register') }}
