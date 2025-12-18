@@ -13,6 +13,8 @@ export interface BudgetService {
   update(id: string, budget: Budget): Promise<Budget>
 
   delete(id: string): Promise<void>
+
+  findById(id: string): Promise<DefaultResponse<Budget>>
 }
 
 export default function budgetService({ apiUrl }: BudgetServiceOptions): BudgetService {
@@ -40,6 +42,15 @@ export default function budgetService({ apiUrl }: BudgetServiceOptions): BudgetS
         },
         method: 'POST',
         body: budget
+      })
+    },
+
+    async findById(id: string): Promise<DefaultResponse<Budget>> {
+      return await $fetch(`${apiUrl}budgets/${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + getTokenCookie().value?.token
+        },
+        method: 'GET'
       })
     },
 

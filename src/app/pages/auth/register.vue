@@ -84,7 +84,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         <template #description>
           {{ $t('haveAccount') }}
           <ULink
-            to="/login"
+            to="/auth/login"
             class="text-primary font-medium"
           > {{ $t('login') }}
           </ULink>

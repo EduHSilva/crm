@@ -87,7 +87,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         <template #description>
           {{ $t('dontHaveAccount') }}
           <ULink
-            to="/register"
+            to="/auth/register"
             class="text-primary font-medium"
           > {{ $t('register') }}
           </ULink>

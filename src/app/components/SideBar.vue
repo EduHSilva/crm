@@ -44,11 +44,11 @@ const items: NavigationMenuItem[][] = [[{
   defaultOpen: false,
   children: [{
     label: $t('general'),
-    to: '/settings',
+    to: '/settings/general',
     active: props.active?.includes('settings')
   }, {
     label: $t('account'),
-    to: '/account',
+    to: '/settings/account',
     active: props.active?.includes('account')
   }]
 }]]

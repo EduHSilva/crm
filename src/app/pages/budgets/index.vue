@@ -3,8 +3,9 @@ import { h, ref } from 'vue'
 import SideBar from '~/components/SideBar.vue'
 import type { TableColumn } from '#ui/components/Table.vue'
 import { getPaginationRowModel } from '@tanstack/vue-table'
-import { UBadge, UButton } from '#components'
+import { UBadge, UButton, UDropdownMenu } from '#components'
 import BudgetModal from '~/components/modais/BudgetModal.vue'
+import type { Row } from '@tanstack/vue-table'
 
 const search = ref('')
 const filter = ref('')
@@ -105,27 +106,70 @@ const columns: TableColumn<Budget>[] = [
   { accessorKey: 'observations', header: $t('budget.observations') },
   {
     id: 'actions',
-    cell: ({ row }) =>
-      h(
+    cell: ({ row }) => {
+      return h(
         'div',
-        { class: 'flex justify-end space-x-2' },
-        [
-          h(UButton, {
-            icon: 'i-lucide-pencil',
-            color: 'primary',
-            variant: 'ghost',
-            onClick: () => editBudget(row.original)
-          }),
-          h(UButton, {
-            icon: 'i-lucide-trash',
-            color: 'error',
-            variant: 'ghost',
-            onClick: () => deleteBudget(row.original.id || '')
-          })
-        ]
+        { class: 'text-right' },
+        h(
+          UDropdownMenu,
+          {
+            'content': {
+              align: 'end'
+            },
+            'items': getRowItems(row),
+            'aria-label': 'Actions dropdown'
+          },
+          () =>
+            h(UButton, {
+              'icon': 'i-lucide-ellipsis-vertical',
+              'color': 'neutral',
+              'variant': 'ghost',
+              'class': 'ml-auto',
+              'aria-label': 'Actions dropdown'
+            })
+        )
       )
+    }
   }
 ]
+
+function getRowItems(row: Row<Budget>) {
+  return [
+    {
+      type: 'label',
+      label: 'Actions'
+    },
+    {
+      label: $t('view'),
+      icon: 'i-lucide-eye',
+      onSelect() {
+        viewBudget(row.original)
+      }
+    },
+    {
+      label: $t('edit'),
+      icon: 'i-lucide-pencil',
+      onSelect() {
+        editBudget(row.original)
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: $t('delete'),
+      icon: 'i-lucide-trash',
+      onSelect() {
+        deleteBudget(row.original.id ?? '')
+      }
+    }
+  ]
+}
+const router = useRouter()
+
+function viewBudget(budget: Budget) {
+  router.push(`/budgets/${budget.id}/preview`)
+}
 
 function editBudget(row: Budget) {
   selectedBudget.value = { ...row }
