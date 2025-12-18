@@ -2,7 +2,7 @@ import { useUser } from '~/plugins/userService'
 import { getTokenCookie } from '~/utils/util'
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  const URLS_NO_LOGIN = ['/login', '/register', '/']
+  const URLS_NO_LOGIN = ['/auth/login', '/auth/register', '/']
 
   const token = getTokenCookie()
 

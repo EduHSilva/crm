@@ -54,7 +54,7 @@
         variant="subtle"
         :links="[{
           label: $t('landingPage.startFree'),
-          to: '/register',
+          to: '/auth/register',
           trailingIcon: 'i-lucide-arrow-right',
           color: 'neutral',
           class: 'bg-primary dark:bg-primary-dark'
