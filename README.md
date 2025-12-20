@@ -1,71 +1,75 @@
-# 📊 CRM Platform
+# 📊 CRM Platform – Frontend
 
-A modular CRM platform focused on **sales pipelines, lead management and small businesses**.
+Frontend application of a modular CRM platform focused on **sales pipelines, lead management and small businesses**.
+
+This repository contains the **web client** responsible for user interaction, data visualization and communication with backend microservices.
 
 ---
 
 ## 🎯 Problem
 
-Small businesses and service providers often rely on spreadsheets or generic tools that don’t fit their real sales flow, making it hard to:
+Small businesses and service providers often rely on spreadsheets or generic tools that don’t reflect their real sales flow, making it difficult to:
 
+- Visualize sales pipelines clearly  
 - Track leads and opportunities  
-- Organize sales stages  
-- Control services and follow-ups  
-- Understand cash flow and performance  
+- Manage customers and services  
+- Understand business performance  
 
 ---
 
 ## 💡 Solution
 
-This CRM provides a **simple, modular and scalable sales pipeline**, designed to grow with the business.
+This frontend provides a **clean, intuitive and scalable user interface** for managing sales and customer data, fully integrated with backend microservices.
 
 Key principles:
-- Clear sales funnel  
-- Modular architecture (easy to extend)  
-- Cloud-ready and API-first  
-- Focus on real-world business workflows  
+- Simple and intuitive UX  
+- Clear visualization of sales stages  
+- API-driven communication  
+- Modular and maintainable frontend architecture  
 
 ---
 
 ## 🚀 Main Features
 
-- Lead management  
-- Sales pipeline (customizable stages)  
-- Customer and contact tracking  
-- Service and proposal control *(planned)*  
-- Basic cash flow and revenue tracking *(planned)*  
+- Sales pipeline visualization  
+- Lead and customer management  
+- Forms and workflows for business operations  
+- Integration with backend APIs  
+- Responsive layout  
 
 ---
 
 ## 🧱 Architecture
 
 **Tech stack:**
-- Backend: Java (Spring Boot)  
-- Database: PostgreSQL  
-- Infrastructure: AWS  
-- Containers: Docker  
+- Nuxt 3  
+- TypeScript  
+- REST API integration  
 
 **Architecture overview:**
-[ Client / Frontend ]
-|
-REST API
-|
-[ CRM Core Service ]
-|
-PostgreSQL
+  [ Web Client (Nuxt) ] <-> API Gateway <-> Backend Microservices <-> PostgreSQL
+
+- The frontend is fully decoupled from backend services and communicates exclusively through APIs.
 
 ## ⚙️ Running locally
 
 ### Prerequisites
-- Docker
-- Docker Compose
-- Java 17+
+- Node.js 18+
 
 ### Steps
 ```bash
-git clone https://github.com/your-user/crm-platform.git
-cd crm-platform
-docker-compose up
+git clone https://github.com/your-user/crm-frontend.git
+cd src
+npm install
+npm run dev
 ```
-API available at:
-http://localhost:8080
+Application available at: http://localhost:3000
+
+🔧 Environment variables
+
+Create a .env file:
+```NUXT_PUBLIC_API_URL=http://localhost:8080```
+
+## 📚 Possible future expansions
+- Mobile-friendly improvements
+- Technical documentation and course material
