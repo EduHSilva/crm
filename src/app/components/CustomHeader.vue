@@ -26,7 +26,7 @@ if (!namePage.value) {
         <img
           src="/images/logo.png"
           alt="logo"
-          class="w-40 dark:invert-100 dark:grayscale"
+          class="w-30 dark:invert-100 dark:grayscale"
         >
       </NuxtLink>
       <div
