@@ -13,9 +13,6 @@ const emit = defineEmits<{
   (e: 'submitted', data: Client | { observations: string }): void
 }>()
 
-// ------------------
-// ZOD SCHEMA
-// ------------------
 const schema = z.object({
   name: z.string().min(1, { message: $t('errors.required') }),
   email: z.email({ message: $t('errors.invalidEmail') }),
@@ -25,9 +22,6 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>
 
-// ------------------
-// STATE
-// ------------------
 const state = reactive<Schema>({
   name: props.client?.name || '',
   email: props.client?.email || '',

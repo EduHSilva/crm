@@ -5,10 +5,23 @@ const { $budgetService } = useNuxtApp()
 const budgetId = route.params.id as string
 const response = await $budgetService.findById(budgetId)
 const budget = response.data
+
+const handlePrint = () => {
+  if (import.meta.client) {
+    window.print()
+  }
+}
+
+const handleApprove = async () => {
+
+}
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto p-10 bg-white dark:bg-dark">
+  <div
+    id="budget-pdf"
+    class="max-w-4xl mx-auto p-10 bg-white dark:bg-dark"
+  >
     <h1 class="text-2xl font-bold mb-2">
       {{ budget?.title }}
     </h1>
@@ -29,13 +42,15 @@ const budget = response.data
     <div class="flex gap-3 mt-10 print:hidden">
       <UButton
         icon="i-lucide-printer"
-        label="Imprimir"
-        @click="window.print()"
+        :label="$t('print')"
+        @click="handlePrint"
       />
+    </div>
+    <div class="flex gap-3 mt-10 print:hidden">
       <UButton
-        icon="i-lucide-file-down"
-        label="Gerar PDF"
-        variant="outline"
+        icon="i-lucide-printer"
+        :label="$t('approve')"
+        @click="handleApprove"
       />
     </div>
   </div>

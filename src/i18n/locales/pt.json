@@ -31,6 +31,10 @@
   "viewKanban": "Visualizar kanban",
   "shortcuts": "Atalhos",
   "recentBudgets": "Orçamentos recentes",
+  "new": "Novo",
+  "draft": "Rascunho",
+  "working": "Em andamento",
+  "approved": "Aprovado",
   "reminder": {
     "manage": "Gerencie seus lembretes"
   },

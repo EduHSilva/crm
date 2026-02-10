@@ -44,9 +44,6 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>
 
-// ------------------
-// STATE
-// ------------------
 const state = reactive<Schema>({
   title: '',
   description: '',

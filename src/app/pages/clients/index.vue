@@ -17,9 +17,6 @@ const pagination = ref({
 const { $clientService } = useNuxtApp()
 const toast = useToast()
 
-// -------------------------------
-// BUSCA INICIAL
-// -------------------------------
 const response = await $clientService.find(pagination.value.pageIndex, null, null)
 const data = ref<Client[]>(response.data.items || [])
 let totalItems = response.data.total || 0
@@ -38,9 +35,6 @@ const statusFilter = [
   }
 ]
 
-// -------------------------------
-// MODAL + ESTADO
-// -------------------------------
 const modalRef = ref<InstanceType<typeof ClientModal> | null>(null)
 
 const edit = ref(false)
@@ -56,16 +50,10 @@ function refreshClients() {
   })
 }
 
-// -------------------------------
-// STATUS
-// -------------------------------
 const status = {
   NEW: 'neutral'
 } as const
 
-// -------------------------------
-// COLUNAS DA TABELA
-// -------------------------------
 const columns: TableColumn<Client>[] = [
   { accessorKey: 'name', header: $t('client.name') },
   { accessorKey: 'email', header: $t('client.email') },
@@ -78,14 +66,11 @@ const columns: TableColumn<Client>[] = [
       return h(
         UBadge,
         { class: 'capitalize', variant: 'subtle', color: status[v] },
-        () => v
+        () => $t(v.toLowerCase())
       )
     }
   },
   { accessorKey: 'observations', header: $t('client.observations') },
-  // ---------------------------
-  // ACTIONS DROPDOWN
-  // ---------------------------
   {
     id: 'actions',
     cell: ({ row }) =>
@@ -110,9 +95,6 @@ const columns: TableColumn<Client>[] = [
   }
 ]
 
-// -------------------------------
-// AÇÕES
-// -------------------------------
 function editClient(row: Client) {
   selectedClient.value = { ...row }
   edit.value = true

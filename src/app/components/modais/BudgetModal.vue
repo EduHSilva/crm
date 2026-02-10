@@ -5,9 +5,6 @@ import BudgetForm from '~/components/forms/BudgetForm.vue'
 
 const open = ref(false)
 
-// -------------------------
-// PROPS
-// -------------------------
 const props = defineProps<{
   budget: Budget | null
   mode?: 'create' | 'edit'
@@ -20,9 +17,6 @@ const emit = defineEmits<{
 const loading = ref(false)
 const toast = useToast()
 
-// -------------------------
-// SUBMIT
-// -------------------------
 async function handleSubmit(data: Budget) {
   const { $budgetService } = useNuxtApp()
   loading.value = true

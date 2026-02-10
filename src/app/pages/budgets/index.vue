@@ -76,7 +76,9 @@ function refresh() {
 }
 
 const status = {
-  NEW: 'neutral'
+  DRAFT: 'warning',
+  WORKING: 'neutral',
+  APPROVED: 'success'
 } as const
 
 const columns: TableColumn<Budget>[] = [
@@ -99,7 +101,7 @@ const columns: TableColumn<Budget>[] = [
       return h(
         UBadge,
         { class: 'capitalize', variant: 'subtle', color: status[v] },
-        () => v
+        () => $t(v.toLowerCase())
       )
     }
   },

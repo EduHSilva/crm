@@ -1,7 +1,10 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <USeparator />
 
-  <UFooter>
+  <UFooter class="print:hidden">
     <template #left>
       <p class="text-sm text-muted">
         Eduardo Henrique da Silva • © {{ new Date().getFullYear() }}

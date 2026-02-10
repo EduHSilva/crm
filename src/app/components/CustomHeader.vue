@@ -17,7 +17,7 @@ if (!namePage.value) {
 </script>
 
 <template>
-  <UHeader>
+  <UHeader class="print:hidden">
     <template #left>
       <NuxtLink
         v-if="!logged"

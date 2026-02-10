@@ -59,26 +59,6 @@ const items: NavigationMenuItem[][] = [[{
     collapsible
     resizable
   >
-    <template #header="{ collapsed }">
-      <NuxtLink
-        v-if="!collapsed"
-        to="/"
-        class="flex items-center w-full m-10"
-      >
-        <img
-          src="/images/logo.png"
-          alt="logo"
-          class="w-auto dark:invert-100 dark:grayscale"
-        >
-      </NuxtLink>
-
-      <UIcon
-        v-else
-        name="i-simple-icons-nuxtdotjs"
-        class="size-5 text-primary mx-auto"
-      />
-    </template>
-
     <template #default="{ collapsed }">
       <UNavigationMenu
         :collapsed="collapsed"
