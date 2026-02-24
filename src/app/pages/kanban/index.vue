@@ -2,18 +2,12 @@
 import SideBar from '~/components/SideBar.vue'
 import type { DragChangeEvent } from 'vue-draggable-next'
 
-/* ===============================
- * DATA (SSR SAFE)
- * =============================== */
 const { $dashboardService, $budgetService } = useNuxtApp()
 
 const { data } = await useAsyncData('kanban', () =>
   $dashboardService.findKanban()
 )
 
-/* ===============================
- * STATE
- * =============================== */
 const news = ref<Budget[]>([])
 const working = ref<Budget[]>([])
 const done = ref<Budget[]>([])
@@ -26,12 +20,9 @@ watchEffect(() => {
   }
 })
 
-/* ===============================
- * METHODS
- * =============================== */
 async function handleChangeNew(evt: DragChangeEvent<Budget>) {
   if (evt.added) {
-    const budget: Budget = evt.added.element
+    const budget = evt.added.element
     budget.status = 'APPROVED'
     await $budgetService.update(budget.id ?? '', budget)
   }
@@ -39,7 +30,7 @@ async function handleChangeNew(evt: DragChangeEvent<Budget>) {
 
 async function handleChangeWorking(evt: DragChangeEvent<Budget>) {
   if (evt.added) {
-    const budget: Budget = evt.added.element
+    const budget = evt.added.element
     budget.status = 'WORKING'
     await $budgetService.update(budget.id ?? '', budget)
   }
@@ -47,7 +38,7 @@ async function handleChangeWorking(evt: DragChangeEvent<Budget>) {
 
 async function handleChangeDone(evt: DragChangeEvent<Budget>) {
   if (evt.added) {
-    const budget: Budget = evt.added.element
+    const budget = evt.added.element
     budget.status = 'DONE'
     await $budgetService.update(budget.id ?? '', budget)
   }
@@ -55,51 +46,59 @@ async function handleChangeDone(evt: DragChangeEvent<Budget>) {
 </script>
 
 <template>
-  <div class="flex min-h-screen overflow-hidden">
+  <div class="flex min-h-screen bg-gray-50 dark:bg-gray-950">
     <SideBar active="kanban" />
 
-    <div class="flex-1 p-10 pr-12">
-      <h1 class="font-bold font-title text-4xl">
-        {{ $t('kanban.title') }}
-      </h1>
-      <h2 class="font-bold font-title text-2xl">
-        {{ $t('kanban.manage') }}
-      </h2>
+    <div class="flex-1 p-8">
+      <!-- HEADER -->
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold font-title">
+            {{ $t('kanban.title') }}
+          </h1>
+          <p class="text-gray-500">
+            {{ $t('kanban.manage') }}
+          </p>
+        </div>
+
+        <UButton
+          icon="i-heroicons-plus"
+          size="lg"
+        >
+          Novo orçamento
+        </UButton>
+      </div>
 
       <!-- COUNTERS -->
-      <UPageGrid class="mt-4">
-        <UPageCard
-          :title="news.length + ' ' + $t('kanban.news')"
-          :ui="{ title: 'text-orange-400' }"
-        />
-        <UPageCard
-          :title="working.length + ' ' + $t('kanban.working')"
-          :ui="{ title: 'text-blue-400' }"
-        />
-        <UPageCard
-          :title="done.length + ' ' + $t('kanban.done')"
-          :ui="{ title: 'text-green-400' }"
-        />
+      <UPageGrid class="mb-6">
+        <UPageCard :title="news.length + ' ' + $t('kanban.news')" />
+        <UPageCard :title="working.length + ' ' + $t('kanban.working')" />
+        <UPageCard :title="done.length + ' ' + $t('kanban.done')" />
       </UPageGrid>
 
       <!-- KANBAN -->
-      <UPageGrid class="mt-6 grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <KanbanBoard
+          title="Novos"
+          color="orange"
           :list="news"
           :handle-change="handleChangeNew"
-          :title="$t('kanban.news')"
         />
+
         <KanbanBoard
+          title="Em andamento"
+          color="blue"
           :list="working"
           :handle-change="handleChangeWorking"
-          :title="$t('kanban.working')"
         />
+
         <KanbanBoard
+          title="Finalizados"
+          color="green"
           :list="done"
           :handle-change="handleChangeDone"
-          :title="$t('kanban.done')"
         />
-      </UPageGrid>
+      </div>
     </div>
   </div>
 </template>

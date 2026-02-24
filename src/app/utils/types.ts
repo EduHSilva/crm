@@ -44,6 +44,7 @@ export type Budget = {
   terms?: string
   status?: string
   observations?: string
+  total?: number
 }
 
 export type DashboardData = {

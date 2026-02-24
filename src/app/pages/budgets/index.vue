@@ -138,10 +138,6 @@ const columns: TableColumn<Budget>[] = [
 function getRowItems(row: Row<Budget>) {
   return [
     {
-      type: 'label',
-      label: 'Actions'
-    },
-    {
       label: $t('view'),
       icon: 'i-lucide-eye',
       onSelect() {

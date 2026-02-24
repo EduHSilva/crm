@@ -35,6 +35,9 @@
   "draft": "Rascunho",
   "working": "Em andamento",
   "approved": "Aprovado",
+  "view": "Visualizar",
+  "edit": "Editar",
+  "delete": "Deletar",
   "reminder": {
     "manage": "Gerencie seus lembretes"
   },
@@ -99,7 +102,9 @@
     "draft": "Rascunho",
     "working": "Em progresso",
     "cancel": "Cancelado",
-    "done": "Finalizado"
+    "done": "Finalizado",
+    "approve": "Aprovar",
+    "print": "Imprimir/Gerar pdf"
   },
   "dash": {
     "generalVision": "Visão geral do seu negocio",
