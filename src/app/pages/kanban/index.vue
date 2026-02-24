@@ -46,11 +46,10 @@ async function handleChangeDone(evt: DragChangeEvent<Budget>) {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-gray-50 dark:bg-gray-950">
+  <div class="flex min-h-screen">
     <SideBar active="kanban" />
 
     <div class="flex-1 p-8">
-      <!-- HEADER -->
       <div class="mb-6 flex items-center justify-between">
         <div>
           <h1 class="text-4xl font-bold font-title">
@@ -69,14 +68,12 @@ async function handleChangeDone(evt: DragChangeEvent<Budget>) {
         </UButton>
       </div>
 
-      <!-- COUNTERS -->
       <UPageGrid class="mb-6">
         <UPageCard :title="news.length + ' ' + $t('kanban.news')" />
         <UPageCard :title="working.length + ' ' + $t('kanban.working')" />
         <UPageCard :title="done.length + ' ' + $t('kanban.done')" />
       </UPageGrid>
 
-      <!-- KANBAN -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <KanbanBoard
           title="Novos"

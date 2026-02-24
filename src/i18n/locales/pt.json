@@ -38,6 +38,7 @@
   "view": "Visualizar",
   "edit": "Editar",
   "delete": "Deletar",
+  "logout": "Sair",
   "reminder": {
     "manage": "Gerencie seus lembretes"
   },

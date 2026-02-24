@@ -7,12 +7,11 @@ const localeOptions = [
   { value: 'pt', label: '🇧🇷 Português' },
   { value: 'en', label: '🇺🇸 English' }
 ]
-const logged = useUser().value != null
-const route = useRoute()
+const router = useRouter()
 
-const namePage = computed(() => route.name)
-if (!namePage.value) {
-  namePage.value = 'dashboard'
+const handleLogout = () => {
+  useUser().value = null
+  router.push('/')
 }
 </script>
 
@@ -20,8 +19,7 @@ if (!namePage.value) {
   <UHeader class="print:hidden">
     <template #left>
       <NuxtLink
-        v-if="!logged"
-        to="/"
+        :to="useUser().value ? '/dashboard' : '/'"
       >
         <img
           src="/images/logo.png"
@@ -29,12 +27,6 @@ if (!namePage.value) {
           class="w-30 dark:invert-100 dark:grayscale"
         >
       </NuxtLink>
-      <div
-        v-if="logged"
-        class="font-bold"
-      >
-        {{ $t(namePage) }}
-      </div>
     </template>
 
     <template #right>
@@ -49,18 +41,26 @@ if (!namePage.value) {
       />
 
       <UButton
-        v-if="!logged"
+        v-if="!useUser().value"
         to="/auth/login"
         class="bg-primary dark:bg-primary-dark"
       >
         {{ $t('login') }}
       </UButton>
       <UButton
-        v-if="!logged"
+        v-if="!useUser().value"
         to="/auth/register"
         variant="outline"
       >
         {{ $t('register') }}
+      </UButton>
+
+      <UButton
+        v-if="useUser().value != null"
+        class="bg-primary dark:bg-primary-dark"
+        @click="handleLogout"
+      >
+        {{ $t('logout') }}
       </UButton>
     </template>
   </UHeader>
