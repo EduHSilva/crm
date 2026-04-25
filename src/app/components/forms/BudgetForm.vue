@@ -107,7 +107,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
     >
       <UInput
         v-model="state.title"
-        placeholder="Título do orçamento"
+        :placeholder="$t('budget.form.titlePlaceholder')"
         class="w-full"
       />
     </UFormField>
@@ -144,7 +144,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
     >
       <UTextarea
         v-model="state.description"
-        placeholder="Descrição do projeto/serviço"
+        :placeholder="$t('budget.form.descriptionPlaceholder')"
         autoresize
         :rows="3"
         class="w-full"
@@ -167,7 +167,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
         >
           <UInput
             v-model="item.name"
-            placeholder="Nome do item"
+            :placeholder="$t('budget.form.itemNamePlaceholder')"
           />
         </UFormField>
 
@@ -177,7 +177,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
         >
           <UInput
             v-model="item.description"
-            placeholder="Descrição opcional"
+            :placeholder="$t('budget.form.itemDescriptionPlaceholder')"
           />
         </UFormField>
 
@@ -222,29 +222,27 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       </UButton>
 
       <div class="flex justify-end text-sm text-gray-300 mt-2">
-        Subtotal:
+        {{ $t('budget.subtotal') }}:
         <span class="ml-1 font-semibold">
-          R$
-          {{
+          {{ formatCurrency(
             state.items.reduce(
               (acc, i) => acc + i.quantity * i.price,
               0
-            ).toFixed(2)
-          }}
+            )
+          ) }}
         </span>
       </div>
     </div>
 
     <div class="flex justify-end text-xl font-bold pr-2">
-      Total:
+      {{ $t('budget.total') }}:
       <span class="ml-2">
-        R$
-        {{
+        {{ formatCurrency(
           state.items.reduce(
             (acc, i) => acc + i.quantity * i.price,
             0
-          ).toFixed(2)
-        }}
+          )
+        ) }}
       </span>
     </div>
 
@@ -274,5 +272,5 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       </UFormField>
       <slot />
     </div>
-  </Uform>
+  </UForm>
 </template>

@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import SideBar from '~/components/SideBar.vue'
 import type { DragChangeEvent } from 'vue-draggable-next'
+import BudgetModal from '~/components/modais/BudgetModal.vue'
 
 const { $dashboardService, $budgetService } = useNuxtApp()
 
-const { data } = await useAsyncData('kanban', () =>
+const { data, refresh, pending } = await useAsyncData('kanban', () =>
   $dashboardService.findKanban()
 )
 
 const news = ref<Budget[]>([])
 const working = ref<Budget[]>([])
 const done = ref<Budget[]>([])
+const search = ref('')
+const minimumValue = ref(0)
+const onlyWithValue = ref(false)
+
+const budgetModalRef = ref<InstanceType<typeof BudgetModal> | null>(null)
+
+function openBudgetModal() {
+  budgetModalRef.value?.openModal()
+}
 
 watchEffect(() => {
   if (data.value?.data) {
@@ -19,83 +29,188 @@ watchEffect(() => {
     done.value = data.value.data.done ?? []
   }
 })
-
-async function handleChangeNew(evt: DragChangeEvent<Budget>) {
-  if (evt.added) {
-    const budget = evt.added.element
-    budget.status = 'APPROVED'
+async function handleKanbanChange(
+  evt: DragChangeEvent<Budget>,
+  status: Budget['status']
+) {
+  const update = async (budget: Budget) => {
     await $budgetService.update(budget.id ?? '', budget)
   }
+
+  if (evt.added) {
+    const budget = evt.added.element
+    budget.status = status
+    budget.kanbanOrder = evt.added.newIndex
+    await update(budget)
+  }
+
+  if (evt.moved) {
+    const budget = evt.moved.element
+    budget.kanbanOrder = evt.moved.newIndex
+    await update(budget)
+  }
+  await refresh()
 }
 
-async function handleChangeWorking(evt: DragChangeEvent<Budget>) {
-  if (evt.added) {
-    const budget = evt.added.element
-    budget.status = 'WORKING'
-    await $budgetService.update(budget.id ?? '', budget)
-  }
+const handleChangeNew = (evt: DragChangeEvent<Budget>) =>
+  handleKanbanChange(evt, 'APPROVED')
+
+const handleChangeWorking = (evt: DragChangeEvent<Budget>) =>
+  handleKanbanChange(evt, 'WORKING')
+
+const handleChangeDone = (evt: DragChangeEvent<Budget>) =>
+  handleKanbanChange(evt, 'DONE')
+
+const applyFilters = (list: Budget[]) => {
+  return list.filter((item) => {
+    const query = search.value.toLowerCase().trim()
+    const inTitle = item.title.toLowerCase().includes(query)
+    const inClient = (item.clientName || item.client || '').toLowerCase().includes(query)
+    const queryMatches = !query || inTitle || inClient
+
+    const budgetTotal = item.total ?? 0
+    const valueMatches = budgetTotal >= minimumValue.value
+    const hasValueMatches = !onlyWithValue.value || budgetTotal > 0
+
+    return queryMatches && valueMatches && hasValueMatches
+  })
 }
 
-async function handleChangeDone(evt: DragChangeEvent<Budget>) {
-  if (evt.added) {
-    const budget = evt.added.element
-    budget.status = 'DONE'
-    await $budgetService.update(budget.id ?? '', budget)
-  }
+const filteredNews = computed(() => applyFilters(news.value))
+const filteredWorking = computed(() => applyFilters(working.value))
+const filteredDone = computed(() => applyFilters(done.value))
+
+const totalCards = computed(() =>
+  news.value.length + working.value.length + done.value.length
+)
+
+const visibleCards = computed(() =>
+  filteredNews.value.length + filteredWorking.value.length + filteredDone.value.length
+)
+
+const pipelineValue = computed(() => {
+  return [...news.value, ...working.value, ...done.value]
+    .reduce((acc, item) => acc + (item.total ?? 0), 0)
+})
+
+const refreshEvent = () => {
+  refresh()
 }
 </script>
 
 <template>
-  <div class="flex min-h-screen">
+  <div class="flex min-h-screen overflow-hidden">
     <SideBar active="kanban" />
 
-    <div class="flex-1 p-8">
-      <div class="mb-6 flex items-center justify-between">
+    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 class="text-4xl font-bold font-title">
+          <h1 class="text-2xl font-bold font-title md:text-3xl">
             {{ $t('kanban.title') }}
           </h1>
-          <p class="text-gray-500">
+          <p class="mt-1 max-w-2xl text-sm text-muted">
             {{ $t('kanban.manage') }}
           </p>
         </div>
 
-        <UButton
-          icon="i-heroicons-plus"
-          size="lg"
-        >
-          Novo orçamento
-        </UButton>
+        <div class="flex items-center gap-2">
+          <UButton
+            icon="i-lucide-refresh-cw"
+            color="neutral"
+            variant="outline"
+            :loading="pending"
+            :label="$t('kanban.refresh')"
+            @click="refreshEvent"
+          />
+
+          <UButton
+            icon="i-lucide-plus"
+            size="lg"
+            :label="$t('newBudget')"
+            @click="openBudgetModal"
+          />
+        </div>
       </div>
 
-      <UPageGrid class="mb-6">
-        <UPageCard :title="news.length + ' ' + $t('kanban.news')" />
-        <UPageCard :title="working.length + ' ' + $t('kanban.working')" />
-        <UPageCard :title="done.length + ' ' + $t('kanban.done')" />
+      <UPageGrid class="mb-5">
+        <UPageCard
+          :title="$t('kanban.totalCards')"
+          :description="`${totalCards} ${$t('kanban.items')}`"
+          icon="i-lucide-layers-3"
+        />
+        <UPageCard
+          :title="$t('kanban.visibleCards')"
+          :description="`${visibleCards} ${$t('kanban.items')}`"
+          icon="i-lucide-filter"
+        />
+        <UPageCard
+          :title="$t('kanban.pipelineValue')"
+          :description="formatCurrency(pipelineValue)"
+          icon="i-lucide-wallet-cards"
+        />
       </UPageGrid>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <UCard class="mb-6">
+        <div class="grid gap-3 md:grid-cols-3">
+          <UInput
+            v-model="search"
+            icon="i-lucide-search"
+            :placeholder="$t('kanban.searchPlaceholder')"
+          />
+
+          <UInput
+            v-model.number="minimumValue"
+            type="number"
+            min="0"
+            icon="i-lucide-scale"
+            :placeholder="$t('kanban.minimumValuePlaceholder')"
+          />
+
+          <div class="flex items-center justify-between rounded-lg border border-default px-3 py-2">
+            <div>
+              <p class="text-sm font-medium">
+                {{ $t('kanban.onlyWithValue') }}
+              </p>
+              <p class="text-xs text-muted">
+                {{ $t('kanban.onlyWithValueHint') }}
+              </p>
+            </div>
+            <USwitch v-model="onlyWithValue" />
+          </div>
+        </div>
+      </UCard>
+
+      <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
         <KanbanBoard
-          title="Novos"
+          :title="$t('kanban.news')"
+          :description="$t('kanban.newsDescription')"
           color="orange"
-          :list="news"
+          :list="filteredNews"
           :handle-change="handleChangeNew"
         />
 
         <KanbanBoard
-          title="Em andamento"
+          :title="$t('kanban.working')"
+          :description="$t('kanban.workingDescription')"
           color="blue"
-          :list="working"
+          :list="filteredWorking"
           :handle-change="handleChangeWorking"
         />
 
         <KanbanBoard
-          title="Finalizados"
+          :title="$t('kanban.done')"
+          :description="$t('kanban.doneDescription')"
           color="green"
-          :list="done"
+          :list="filteredDone"
           :handle-change="handleChangeDone"
         />
       </div>
+
+      <BudgetModal
+        ref="budgetModalRef"
+        :budget="null"
+        @saved="refresh"
+      />
     </div>
   </div>
 </template>

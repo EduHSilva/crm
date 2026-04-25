@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { h, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 import SideBar from '~/components/SideBar.vue'
 import ClientModal from '~/components/modais/ClientModal.vue'
-import type { TableColumn } from '#ui/components/Table.vue'
 import { getPaginationRowModel } from '@tanstack/vue-table'
+import type { ColumnDef } from '@tanstack/vue-table'
 import { UBadge, UButton } from '#components'
 import type { Client } from '~/utils/types'
+
+type ClientStatus = 'NEW' | 'WORKING' | 'DONE'
+type ClientRow = Client & { status?: ClientStatus }
 
 const search = ref('')
 const filter = ref('')
@@ -18,9 +21,13 @@ const { $clientService } = useNuxtApp()
 const toast = useToast()
 
 const response = await $clientService.find(pagination.value.pageIndex, null, null)
-const data = ref<Client[]>(response.data.items || [])
+const data = ref<ClientRow[]>(response.data.items || [])
 let totalItems = response.data.total || 0
 const statusFilter = [
+  {
+    label: $t('client.filterAll'),
+    id: ''
+  },
   {
     label: $t('client.new'),
     id: 'NEW'
@@ -51,10 +58,47 @@ function refreshClients() {
 }
 
 const status = {
-  NEW: 'neutral'
+  NEW: 'neutral',
+  WORKING: 'warning',
+  DONE: 'success'
 } as const
 
-const columns: TableColumn<Client>[] = [
+const cardsCount = computed(() => data.value.length)
+const newCount = computed(() =>
+  data.value.filter(client => client.status === 'NEW').length
+)
+const workingCount = computed(() =>
+  data.value.filter(client => client.status === 'WORKING').length
+)
+const doneCount = computed(() =>
+  data.value.filter(client => client.status === 'DONE').length
+)
+
+const quickFilterItems = [
+  { label: $t('client.filterAll'), id: '' },
+  { label: $t('client.new'), id: 'NEW' },
+  { label: $t('client.working'), id: 'WORKING' },
+  { label: $t('client.done'), id: 'DONE' }
+]
+
+function setStatusFilter(statusId: string) {
+  filter.value = statusId
+  refreshClients()
+}
+
+function clearFilters() {
+  search.value = ''
+  filter.value = ''
+  refreshClients()
+}
+
+function statusLabel(value: ClientStatus) {
+  if (value === 'WORKING') return $t('client.working')
+  if (value === 'DONE') return $t('client.done')
+  return $t('client.new')
+}
+
+const columns: ColumnDef<ClientRow>[] = [
   { accessorKey: 'name', header: $t('client.name') },
   { accessorKey: 'email', header: $t('client.email') },
   { accessorKey: 'phone', header: $t('client.phone') },
@@ -62,11 +106,12 @@ const columns: TableColumn<Client>[] = [
     accessorKey: 'status',
     header: $t('client.status'),
     cell: ({ row }) => {
-      const v = row.getValue('status') as keyof typeof status
+      const rawStatus = (row.getValue('status') as ClientStatus) || 'NEW'
+      const v = (rawStatus in status ? rawStatus : 'NEW') as keyof typeof status
       return h(
         UBadge,
         { class: 'capitalize', variant: 'subtle', color: status[v] },
-        () => $t(v.toLowerCase())
+        () => statusLabel(rawStatus)
       )
     }
   },
@@ -95,7 +140,7 @@ const columns: TableColumn<Client>[] = [
   }
 ]
 
-function editClient(row: Client) {
+function editClient(row: ClientRow) {
   selectedClient.value = { ...row }
   edit.value = true
   openModal()
@@ -111,7 +156,7 @@ function deleteClient(id: string) {
   $clientService.delete(id).then(() => {
     toast.add({
       title: $t('attention'),
-      description: 'ok',
+      description: $t('client.deleted'),
       icon: 'i-lucide-alert-triangle',
       color: 'error'
     })
@@ -123,28 +168,74 @@ function deleteClient(id: string) {
 <template>
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="clients" />
-    <div class="flex-1 p-10 pr-12">
-      <div class="flex justify-between mb-5">
-        <h1 class="font-bold font-title text-2xl">
-          {{ $t('client.manage') }}
-        </h1>
 
-        <UButton
-          :label="$t('newClient')"
-          class="bg-primary dark:bg-primary-dark"
-          @click="showNewClient"
-        />
+    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 class="font-bold font-title text-2xl md:text-3xl">
+            {{ $t('clients') }}
+          </h1>
+          <p class="mt-1 max-w-2xl text-sm text-muted">
+            {{ $t('client.manage') }}
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <UButton
+            icon="i-lucide-refresh-cw"
+            color="neutral"
+            variant="outline"
+            :label="$t('common.refresh')"
+            @click="refreshClients"
+          />
+          <UButton
+            icon="i-lucide-filter-x"
+            color="neutral"
+            variant="outline"
+            :label="$t('common.clearFilters')"
+            @click="clearFilters"
+          />
+          <UButton
+            :label="$t('newClient')"
+            icon="i-lucide-plus"
+            class="bg-primary dark:bg-primary-dark"
+            @click="showNewClient"
+          />
+        </div>
       </div>
 
-      <UPageCard>
-        <div class="grid grid-cols-2 gap-4">
+      <UPageGrid class="mb-5">
+        <UPageCard
+          :title="$t('client.totalLoaded')"
+          :description="`${cardsCount} ${$t('client.items')}`"
+          icon="i-lucide-users"
+        />
+        <UPageCard
+          :title="$t('client.new')"
+          :description="`${newCount} ${$t('client.items')}`"
+          icon="i-lucide-user-plus"
+        />
+        <UPageCard
+          :title="$t('client.working')"
+          :description="`${workingCount} ${$t('client.items')}`"
+          icon="i-lucide-hourglass"
+        />
+        <UPageCard
+          :title="$t('client.done')"
+          :description="`${doneCount} ${$t('client.items')}`"
+          icon="i-lucide-check-circle-2"
+        />
+      </UPageGrid>
+
+      <UCard>
+        <div class="grid gap-4 md:grid-cols-2">
           <UInput
             v-model="search"
             icon="i-lucide-search"
             :placeholder="$t('client.search')"
             @change="refreshClients"
           />
-          <UInputMenu
+          <USelectMenu
             v-model="filter"
             icon="i-lucide-filter"
             :placeholder="$t('client.filter')"
@@ -153,9 +244,22 @@ function deleteClient(id: string) {
             @change="refreshClients"
           />
         </div>
-      </UPageCard>
 
-      <div class="mt-10">
+        <div class="mt-3 flex flex-wrap gap-2">
+          <UButton
+            v-for="item in quickFilterItems"
+            :key="item.id || 'ALL'"
+            size="xs"
+            color="neutral"
+            :variant="filter === item.id ? 'solid' : 'soft'"
+            @click="setStatusFilter(item.id)"
+          >
+            {{ item.label }}
+          </UButton>
+        </div>
+      </UCard>
+
+      <div class="mt-6">
         <UEmpty
           v-if="!data?.length"
           icon="i-lucide-user"

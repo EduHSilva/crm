@@ -45,6 +45,7 @@ export type Budget = {
   status?: string
   observations?: string
   total?: number
+  kanbanOrder?: number
 }
 
 export type DashboardData = {

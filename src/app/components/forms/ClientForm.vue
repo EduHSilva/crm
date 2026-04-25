@@ -57,7 +57,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInput
         v-model="state.name"
         icon="i-lucide-user"
-        placeholder="Ex: Maria Silva"
+        :placeholder="$t('client.form.namePlaceholder')"
         class="w-full"
       />
     </UFormField>
@@ -69,7 +69,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInput
         v-model="state.email"
         icon="i-lucide-mail"
-        placeholder="email@exemplo.com"
+        :placeholder="$t('client.form.emailPlaceholder')"
         class="w-full"
       />
     </UFormField>
@@ -81,7 +81,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInput
         v-model="state.phone"
         icon="i-lucide-phone"
-        placeholder="(11) 99999-9999"
+        :placeholder="$t('client.form.phonePlaceholder')"
         class="w-full"
       />
     </UFormField>
@@ -92,7 +92,7 @@ function onSubmit(event: FormSubmitEvent<Schema>) {
     >
       <UTextarea
         v-model="state.observations"
-        placeholder="Notas sobre o cliente..."
+        :placeholder="$t('client.form.observationsPlaceholder')"
         autoresize
         :rows="3"
         class="w-full"

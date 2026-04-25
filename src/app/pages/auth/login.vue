@@ -25,16 +25,13 @@ const fields: AuthFormField[] = [{
 }]
 
 const providers = [{
-  label: 'Google',
+  label: $t('auth.google'),
   icon: 'i-simple-icons-google',
-  onClick: () => {
-  }
+  onClick: () => {}
 }, {
-  label: 'GitHub',
+  label: $t('auth.github'),
   icon: 'i-simple-icons-github',
-  onClick: () => {
-
-  }
+  onClick: () => {}
 }]
 
 const schema = z.object({
@@ -52,7 +49,8 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
       toast.add({
         title: $t('attention'),
         description: $t('errors.loginError'),
-        icon: 'i-lucide-calendar-days'
+        icon: 'i-lucide-alert-triangle',
+        color: 'error'
       })
     } else {
       const token = getTokenCookie()
@@ -65,20 +63,61 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     toast.add({
       title: $t('attention'),
       description: $t('errors.loginError'),
-      icon: 'i-lucide-calendar-days'
+      icon: 'i-lucide-alert-triangle',
+      color: 'error'
     })
   }
 }
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-4 p-4">
-    <UPageCard class="w-full max-w-md">
+  <div class="mx-auto grid min-h-[calc(100vh-12rem)] w-full max-w-6xl items-center gap-6 px-4 py-8 lg:grid-cols-2">
+    <UCard class="order-2 lg:order-1 bg-cards dark:bg-cards-dark">
+      <template #header>
+        <h2 class="font-title text-xl font-bold md:text-2xl">
+          {{ $t('auth.loginPanelTitle') }}
+        </h2>
+      </template>
+
+      <p class="text-sm text-muted">
+        {{ $t('auth.loginPanelDescription') }}
+      </p>
+
+      <div class="mt-4 space-y-3">
+        <div class="rounded-lg border border-default p-3">
+          <p class="text-sm font-medium">
+            {{ $t('auth.panelPointOneTitle') }}
+          </p>
+          <p class="mt-1 text-sm text-muted">
+            {{ $t('auth.panelPointOneDescription') }}
+          </p>
+        </div>
+        <div class="rounded-lg border border-default p-3">
+          <p class="text-sm font-medium">
+            {{ $t('auth.panelPointTwoTitle') }}
+          </p>
+          <p class="mt-1 text-sm text-muted">
+            {{ $t('auth.panelPointTwoDescription') }}
+          </p>
+        </div>
+        <div class="rounded-lg border border-default p-3">
+          <p class="text-sm font-medium">
+            {{ $t('auth.panelPointThreeTitle') }}
+          </p>
+          <p class="mt-1 text-sm text-muted">
+            {{ $t('auth.panelPointThreeDescription') }}
+          </p>
+        </div>
+      </div>
+    </UCard>
+
+    <UPageCard class="order-1 w-full max-w-md justify-self-center border-default lg:order-2">
       <UAuthForm
         :schema="schema"
         :fields="fields"
         :providers="providers"
         :title="$t('login')"
+        :description="$t('auth.loginSubtitle')"
         :submit="{ label: $t('login') }"
         :separator="$t('or')"
         icon="i-lucide-lock"
@@ -89,15 +128,18 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
           <ULink
             to="/auth/register"
             class="text-primary font-medium"
-          > {{ $t('register') }}
+          >
+            {{ $t('register') }}
           </ULink>
         </template>
+
         <template #password-hint>
           <ULink
             to="#"
             class="text-primary font-medium"
             tabindex="-1"
-          >{{ $t('forgotPassword') }}
+          >
+            {{ $t('forgotPassword') }}
           </ULink>
         </template>
       </UAuthForm>

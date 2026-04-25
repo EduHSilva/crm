@@ -30,7 +30,6 @@ async function handleSubmit(data: Budget) {
         data
       )
     } else {
-      console.log(data)
       saved = await $budgetService.add(
         data
       )
@@ -50,8 +49,8 @@ async function handleSubmit(data: Budget) {
       toast.add({
         title: $t('success'),
         description: props.mode === 'edit'
-          ? $t('client.updated')
-          : $t('client.created'),
+          ? $t('budget.updated')
+          : $t('budget.created'),
         icon: 'i-lucide-check',
         color: 'success'
       })
@@ -82,7 +81,7 @@ defineExpose({
     prevent-close
     class="max-w-5xl"
     fullscreen
-    :title="mode === 'edit' ? $t('client.edit') : $t('client.new')"
+    :title="mode === 'edit' ? $t('budget.edit') : $t('budget.new')"
   >
     <template #body>
       <BudgetForm
