@@ -44,7 +44,7 @@ const refreshEvent = () => {
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="dashboard" />
 
-    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+    <div class="flex-1 p-4 md:p-10 md:pr-12">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 class="font-title text-2xl font-bold md:text-3xl">
@@ -55,22 +55,25 @@ const refreshEvent = () => {
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2">
           <UButton
             icon="i-lucide-refresh-cw"
             color="neutral"
             variant="outline"
+            size="sm"
             :label="$t('common.refresh')"
             :loading="pending"
             @click="refreshEvent"
           />
           <UButton
             icon="i-lucide-user-plus"
+            size="sm"
             :label="$t('newClient')"
             @click="openClientModal"
           />
           <UButton
             icon="i-lucide-plus"
+            size="sm"
             :label="$t('newBudget')"
             @click="openBudgetModal"
           />

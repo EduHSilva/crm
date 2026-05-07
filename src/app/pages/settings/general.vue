@@ -62,7 +62,7 @@ const digestOptions = computed(() => ([
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="settings general" />
 
-    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+    <div class="flex-1 p-4 md:p-10 md:pr-12">
       <div class="mb-6">
         <h1 class="font-bold font-title text-2xl md:text-3xl">
           {{ $t('generalSettings.title') }}
@@ -120,7 +120,7 @@ const digestOptions = computed(() => ([
               </p>
             </div>
 
-            <div class="flex items-center justify-between border border-default rounded-lg p-3">
+            <div class="flex items-start justify-between gap-3 border border-default rounded-lg p-3">
               <div>
                 <p class="font-medium">
                   {{ $t('generalSettings.compactMode') }}
@@ -142,25 +142,25 @@ const digestOptions = computed(() => ([
           </template>
 
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <p class="font-medium">
                 {{ $t('generalSettings.taskAlerts') }}
               </p>
               <USwitch v-model="notifications.taskAlerts" />
             </div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <p class="font-medium">
                 {{ $t('generalSettings.pendingBudgetAlerts') }}
               </p>
               <USwitch v-model="notifications.budgetAlerts" />
             </div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <p class="font-medium">
                 {{ $t('generalSettings.overdueAlerts') }}
               </p>
               <USwitch v-model="notifications.overdueAlerts" />
             </div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <p class="font-medium">
                 {{ $t('generalSettings.desktopNotifications') }}
               </p>
@@ -185,7 +185,7 @@ const digestOptions = computed(() => ([
           </template>
 
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-medium">
                   {{ $t('generalSettings.autoMoveKanban') }}
@@ -197,7 +197,7 @@ const digestOptions = computed(() => ([
               <USwitch v-model="automations.autoMoveKanban" />
             </div>
 
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-medium">
                   {{ $t('generalSettings.remindPendingBudget') }}
@@ -209,7 +209,7 @@ const digestOptions = computed(() => ([
               <USwitch v-model="automations.remindPendingBudget" />
             </div>
 
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-medium">
                   {{ $t('generalSettings.remindInactiveClient') }}
@@ -258,7 +258,7 @@ const digestOptions = computed(() => ([
               </p>
             </div>
 
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-2">
               <UButton
                 icon="i-lucide-download"
                 :label="$t('generalSettings.exportData')"
@@ -277,7 +277,7 @@ const digestOptions = computed(() => ([
         <UButton
           icon="i-lucide-save"
           :label="$t('generalSettings.saveSettings')"
-          size="lg"
+          size="sm"
         />
       </div>
     </div>

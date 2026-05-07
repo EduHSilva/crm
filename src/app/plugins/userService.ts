@@ -1,11 +1,12 @@
 import userService from '@/services/userService'
 import type { User } from '~/utils/types'
+import { resolveApiUrl } from '~/utils/apiUrl'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
 
   const service = userService({
-    apiUrl: `${config.public.apiUrl}/users/`
+    apiUrl: resolveApiUrl(`${config.public.apiUrl}/users/`)
   })
 
   return {

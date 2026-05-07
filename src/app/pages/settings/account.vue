@@ -6,9 +6,9 @@ const { t } = useI18n()
 const profile = ref({
   name: 'Eduardo Silva',
   role: 'Administrador',
-  email: 'eduardo@kontrol.app',
+  email: 'contato@ehssolutions.app',
   phone: '+55 (11) 98888-1020',
-  company: 'Kontrol Studio',
+  company: 'EHS Solutions',
   document: '22.456.890/0001-14',
   timezone: 'America/Sao_Paulo',
   language: 'pt-BR',
@@ -43,7 +43,7 @@ const sessions = [
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="settings account" />
 
-    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+    <div class="flex-1 p-4 md:p-10 md:pr-12">
       <div class="mb-6">
         <h1 class="font-bold font-title text-2xl md:text-3xl">
           {{ $t('accountPage.title') }}
@@ -157,6 +157,7 @@ const sessions = [
             <UButton
               :label="$t('accountPage.saveChanges')"
               icon="i-lucide-save"
+              size="sm"
             />
           </div>
         </UCard>
@@ -171,7 +172,7 @@ const sessions = [
           </template>
 
           <div class="space-y-4">
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-medium">
                   {{ $t('accountPage.emailUpdates') }}
@@ -183,7 +184,7 @@ const sessions = [
               <USwitch v-model="communicationSettings.emailUpdates" />
             </div>
 
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-medium">
                   {{ $t('accountPage.whatsappUpdates') }}
@@ -195,7 +196,7 @@ const sessions = [
               <USwitch v-model="communicationSettings.whatsappUpdates" />
             </div>
 
-            <div class="flex items-center justify-between">
+            <div class="flex items-start justify-between gap-3">
               <div>
                 <p class="font-medium">
                   {{ $t('accountPage.marketingUpdates') }}

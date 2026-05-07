@@ -228,7 +228,7 @@ function deleteBudget(id: string) {
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="budgets" />
 
-    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+    <div class="flex-1 p-4 md:p-10 md:pr-12">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 class="font-bold font-title text-2xl md:text-3xl">
@@ -239,7 +239,7 @@ function deleteBudget(id: string) {
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2">
           <UButton
             icon="i-lucide-refresh-cw"
             color="neutral"
@@ -263,7 +263,7 @@ function deleteBudget(id: string) {
         </div>
       </div>
 
-      <UPageGrid class="mb-5">
+      <UPageGrid class="mb-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         <UPageCard
           :title="$t('budget.totalLoaded')"
           :description="`${cardsCount} ${$t('budget.itemsLabel')}`"
@@ -286,7 +286,7 @@ function deleteBudget(id: string) {
         />
       </UPageGrid>
 
-      <UCard>
+      <UCard class="mb-6">
         <div class="grid gap-4 md:grid-cols-2">
           <UInput
             v-model="search"
@@ -334,16 +334,73 @@ function deleteBudget(id: string) {
           </template>
         </UEmpty>
 
-        <UTable
+        <div
           v-else
+          class="space-y-3 md:hidden"
+        >
+          <div
+            v-for="budgetRow in data"
+            :key="budgetRow.id"
+            class="rounded-lg border border-default p-3"
+          >
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <p class="font-semibold">
+                  {{ budgetRow.title }}
+                </p>
+                <p class="text-sm text-muted">
+                  {{ budgetRow.clientName || budgetRow.client }}
+                </p>
+              </div>
+              <UBadge
+                :color="status[(budgetRow.status || 'DRAFT') as keyof typeof status]"
+                variant="subtle"
+              >
+                {{ statusLabel(budgetRow.status || 'DRAFT') }}
+              </UBadge>
+            </div>
+            <p class="mt-2 line-clamp-2 text-sm text-muted">
+              {{ budgetRow.description }}
+            </p>
+            <div class="mt-2 text-sm font-medium">
+              {{ formatCurrency(budgetRow.total ?? 0) }}
+            </div>
+            <div class="mt-3 flex justify-end gap-2">
+              <UButton
+                size="xs"
+                icon="i-lucide-eye"
+                color="neutral"
+                variant="ghost"
+                @click="viewBudget(budgetRow)"
+              />
+              <UButton
+                size="xs"
+                icon="i-lucide-pencil"
+                color="primary"
+                variant="ghost"
+                @click="editBudget(budgetRow)"
+              />
+              <UButton
+                size="xs"
+                icon="i-lucide-trash"
+                color="error"
+                variant="ghost"
+                @click="deleteBudget(budgetRow.id ?? '')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <UTable
           ref="table"
           v-model:pagination="pagination"
+          class="hidden md:table"
           :columns="columns"
           :data="data"
           :pagination-options="{ getPaginationRowModel: getPaginationRowModel() }"
         />
 
-        <div class="flex justify-end border-t border-default pt-4 px-4">
+        <div class="hidden justify-end border-t border-default pt-4 px-4 md:flex">
           <UPagination
             :page="(table?.tableApi?.getState().pagination.pageIndex || 0) + 1"
             :items-per-page="table?.tableApi?.getState().pagination.pageSize"

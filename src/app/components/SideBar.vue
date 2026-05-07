@@ -56,6 +56,7 @@ const items: NavigationMenuItem[][] = [[{
 
 <template>
   <UDashboardSidebar
+    class="hidden lg:flex"
     collapsible
     resizable
   >

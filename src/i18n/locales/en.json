@@ -312,9 +312,9 @@
     "saveError": "Could not save"
   },
   "landingPage": {
-    "badge": "Built for freelancers and small teams",
-    "easyCRM": "Simple CRM for Freelancers",
-    "manageClients": "Manage your clients, projects and reminders in one place. Designed especially for freelancers.",
+    "badge": "EHS Solutions Platform",
+    "easyCRM": "EHS Kontrol",
+    "manageClients": "A product from EHS Solutions to manage clients, budgets, kanban and reminders in one place.",
     "dashboardSnapshot": "Operational snapshot",
     "kpiClients": "Active clients",
     "kpiPipeline": "Current pipeline",

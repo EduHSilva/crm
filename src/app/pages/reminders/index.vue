@@ -164,7 +164,7 @@ function priorityLabel(priority: ReminderPriority) {
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="reminders" />
 
-    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+    <div class="flex-1 p-4 md:p-10 md:pr-12">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 class="font-bold font-title text-2xl md:text-3xl">
@@ -234,7 +234,7 @@ function priorityLabel(priority: ReminderPriority) {
               :key="item.id"
               class="rounded-lg border border-default p-4"
             >
-              <div class="flex items-start justify-between gap-3">
+              <div class="flex flex-wrap items-start justify-between gap-3">
                 <div class="space-y-2">
                   <h3 class="font-semibold text-base">
                     {{ item.title }}
@@ -274,6 +274,7 @@ function priorityLabel(priority: ReminderPriority) {
                   v-if="item.status !== 'DONE'"
                   icon="i-lucide-check"
                   :label="$t('reminder.complete')"
+                  size="sm"
                   color="primary"
                   variant="soft"
                   @click="markAsDone(item.id)"

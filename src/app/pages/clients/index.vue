@@ -169,7 +169,7 @@ function deleteClient(id: string) {
   <div class="flex min-h-screen overflow-hidden">
     <SideBar active="clients" />
 
-    <div class="flex-1 p-8 pr-12 md:p-10 md:pr-12">
+    <div class="flex-1 p-4 md:p-10 md:pr-12">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 class="font-bold font-title text-2xl md:text-3xl">
@@ -180,7 +180,7 @@ function deleteClient(id: string) {
           </p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2">
           <UButton
             icon="i-lucide-refresh-cw"
             color="neutral"
@@ -204,7 +204,7 @@ function deleteClient(id: string) {
         </div>
       </div>
 
-      <UPageGrid class="mb-5">
+      <UPageGrid class="mb-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         <UPageCard
           :title="$t('client.totalLoaded')"
           :description="`${cardsCount} ${$t('client.items')}`"
@@ -227,7 +227,7 @@ function deleteClient(id: string) {
         />
       </UPageGrid>
 
-      <UCard>
+      <UCard class="mb-6">
         <div class="grid gap-4 md:grid-cols-2">
           <UInput
             v-model="search"
@@ -275,16 +275,68 @@ function deleteClient(id: string) {
           </template>
         </UEmpty>
 
-        <UTable
+        <div
           v-else
+          class="space-y-3 md:hidden"
+        >
+          <div
+            v-for="client in data"
+            :key="client.id"
+            class="rounded-lg border border-default p-3"
+          >
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <p class="font-semibold">
+                  {{ client.name }}
+                </p>
+                <p class="text-sm text-muted">
+                  {{ client.email }}
+                </p>
+                <p class="text-sm text-muted">
+                  {{ client.phone }}
+                </p>
+              </div>
+              <UBadge
+                :color="status[(client.status || 'NEW') as keyof typeof status]"
+                variant="subtle"
+              >
+                {{ statusLabel(client.status || 'NEW') }}
+              </UBadge>
+            </div>
+
+            <p class="mt-2 line-clamp-2 text-sm text-muted">
+              {{ client.observations || '-' }}
+            </p>
+
+            <div class="mt-3 flex justify-end gap-2">
+              <UButton
+                size="xs"
+                icon="i-lucide-pencil"
+                color="primary"
+                variant="ghost"
+                @click="editClient(client)"
+              />
+              <UButton
+                size="xs"
+                icon="i-lucide-trash"
+                color="error"
+                variant="ghost"
+                @click="deleteClient(client.id || '')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <UTable
           ref="table"
           v-model:pagination="pagination"
+          class="hidden md:table"
           :columns="columns"
           :data="data"
           :pagination-options="{ getPaginationRowModel: getPaginationRowModel() }"
         />
 
-        <div class="flex justify-end border-t border-default pt-4 px-4">
+        <div class="hidden justify-end border-t border-default pt-4 px-4 md:flex">
           <UPagination
             :page="(table?.tableApi?.getState().pagination.pageIndex || 0) + 1"
             :items-per-page="table?.tableApi?.getState().pagination.pageSize"

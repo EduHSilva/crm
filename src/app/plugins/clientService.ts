@@ -1,10 +1,11 @@
 import clientService from '~/services/clientService'
+import { resolveApiUrl } from '~/utils/apiUrl'
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
 
   const service = clientService({
-    apiUrl: `${config.public.apiUrl}/crm/`
+    apiUrl: resolveApiUrl(`${config.public.apiUrl}/crm/`)
   })
 
   return {

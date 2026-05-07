@@ -3,10 +3,6 @@ import { useUser } from '~/plugins/userService.ts'
 
 const { locale, setLocale } = useI18n()
 
-const localeOptions = [
-  { value: 'pt', label: '🇧🇷 Português' },
-  { value: 'en', label: '🇺🇸 English' }
-]
 const router = useRouter()
 
 const handleLogout = () => {
@@ -16,52 +12,74 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <UHeader class="print:hidden">
-    <template #left>
+  <header class="print:hidden border-b border-default bg-default/60 px-3 py-2 backdrop-blur">
+    <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-2">
       <NuxtLink
+        class="flex items-center gap-2"
         :to="useUser().value ? '/dashboard' : '/'"
       >
-        <img
-          src="/images/logo.png"
-          alt="logo"
-          class="w-30 dark:invert-100 dark:grayscale"
-        >
+        <div class="flex size-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+          <UIcon
+            name="i-lucide-shield-check"
+            class="size-4"
+          />
+        </div>
+        <div class="leading-tight">
+          <p class="text-[11px] font-medium text-muted">
+            EHS Solutions
+          </p>
+          <p class="font-title text-sm font-bold md:text-base">
+            EHS Kontrol
+          </p>
+        </div>
       </NuxtLink>
-    </template>
 
-    <template #right>
-      <UColorModeSwitch />
-      <USelect
-        v-model="locale"
-        :items="localeOptions"
-        option-attribute="label"
-        value-attribute="value"
-        size="sm"
-        @update:model-value="setLocale($event)"
-      />
+      <div class="flex items-center gap-2">
+        <UColorModeButton />
+        <div class="hidden items-center gap-1 sm:flex">
+          <UButton
+            size="xs"
+            :variant="locale === 'pt' ? 'solid' : 'ghost'"
+            color="neutral"
+            label="PT"
+            @click="setLocale('pt')"
+          />
+          <UButton
+            size="xs"
+            :variant="locale === 'en' ? 'solid' : 'ghost'"
+            color="neutral"
+            label="EN"
+            @click="setLocale('en')"
+          />
+        </div>
 
-      <UButton
-        v-if="!useUser().value"
-        to="/auth/login"
-        class="bg-primary dark:bg-primary-dark"
-      >
-        {{ $t('login') }}
-      </UButton>
-      <UButton
-        v-if="!useUser().value"
-        to="/auth/register"
-        variant="outline"
-      >
-        {{ $t('register') }}
-      </UButton>
+        <UButton
+          v-if="!useUser().value"
+          to="/auth/login"
+          class="bg-primary dark:bg-primary-dark"
+          size="sm"
+        >
+          {{ $t('login') }}
+        </UButton>
+        <UButton
+          v-if="!useUser().value"
+          to="/auth/register"
+          variant="outline"
+          size="sm"
+          class="hidden sm:inline-flex"
+        >
+          {{ $t('register') }}
+        </UButton>
 
-      <UButton
-        v-if="useUser().value != null"
-        class="bg-primary dark:bg-primary-dark"
-        @click="handleLogout"
-      >
-        {{ $t('logout') }}
-      </UButton>
-    </template>
-  </UHeader>
+        <UButton
+          v-if="useUser().value != null"
+          class="bg-primary dark:bg-primary-dark"
+          size="sm"
+          icon="i-lucide-log-out"
+          :label="$t('logout')"
+          @click="handleLogout"
+        />
+      </div>
+    </div>
+  </header>
 </template>

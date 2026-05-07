@@ -2,24 +2,26 @@
 </script>
 
 <template>
-  <USeparator />
+  <div class="print:hidden">
+    <USeparator />
 
-  <UFooter class="print:hidden">
-    <template #left>
-      <p class="text-sm text-muted">
-        Eduardo Henrique da Silva • © {{ new Date().getFullYear() }}
-      </p>
-    </template>
+    <UFooter>
+      <template #left>
+        <p class="text-sm text-muted">
+          EHS Solutions • EHS Kontrol • © {{ new Date().getFullYear() }}
+        </p>
+      </template>
 
-    <template #right>
-      <UButton
-        to="https://github.com/EduHSilva"
-        target="_blank"
-        icon="i-simple-icons-github"
-        aria-label="GitHub"
-        color="neutral"
-        variant="ghost"
-      />
-    </template>
-  </UFooter>
+      <template #right>
+        <UButton
+          to="https://github.com/EduHSilva"
+          target="_blank"
+          icon="i-simple-icons-github"
+          aria-label="GitHub"
+          color="neutral"
+          variant="ghost"
+        />
+      </template>
+    </UFooter>
+  </div>
 </template>

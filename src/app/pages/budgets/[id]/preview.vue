@@ -332,7 +332,7 @@ async function handleApprove() {
       class="print:hidden"
     />
 
-    <div class="mx-auto w-full max-w-6xl flex-1 p-6 md:p-10">
+    <div class="mx-auto w-full max-w-6xl flex-1 p-4 md:p-10">
       <div class="mb-6 flex flex-wrap items-start justify-between gap-3 print:mb-4">
         <div>
           <h1 class="font-title text-2xl font-bold md:text-3xl">
@@ -343,16 +343,18 @@ async function handleApprove() {
           </p>
         </div>
 
-        <div class="flex items-center gap-2 print:hidden">
+        <div class="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:items-center print:hidden">
           <UButton
             icon="i-lucide-chevron-left"
             color="neutral"
             variant="outline"
+            size="sm"
             :label="$t('budget.back')"
             @click="handleBack"
           />
           <UButton
             icon="i-lucide-file-down"
+            size="sm"
             :label="$t('budget.generatePdf')"
             :loading="exportingPdf"
             @click="handleGeneratePdf"
@@ -361,6 +363,7 @@ async function handleApprove() {
             icon="i-lucide-message-circle"
             color="neutral"
             variant="outline"
+            size="sm"
             :label="$t('budget.sendWhatsApp')"
             :loading="sharingWhatsApp"
             @click="handleShareWhatsApp"
@@ -368,6 +371,7 @@ async function handleApprove() {
           <UButton
             v-if="shouldShowApprove"
             icon="i-lucide-check"
+            size="sm"
             :label="$t('budget.approve')"
             :loading="approving"
             @click="handleApprove"
@@ -377,7 +381,7 @@ async function handleApprove() {
 
       <div
         id="budget-pdf"
-        class="mx-auto max-w-[980px] rounded-xl border border-default bg-white dark:bg-dark p-8 text-text shadow-sm"
+        class="mx-auto max-w-[980px] rounded-xl border border-default bg-white p-4 text-text shadow-sm md:p-8 dark:bg-dark"
       >
         <div class="mb-6 border-b border-default pb-4">
           <div class="flex flex-wrap items-start justify-between gap-4">
@@ -393,7 +397,7 @@ async function handleApprove() {
               </p>
             </div>
 
-            <div class="text-right text-sm">
+            <div class="text-left text-sm sm:text-right">
               <p class="text-muted">
                 {{ $t('budget.documentNumber') }} #{{ budgetId }}
               </p>
